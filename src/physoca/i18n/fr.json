@@ -1,0 +1,20 @@
+{
+  "app_title": "Physoca — Aide à la décision en déprescription",
+  "patient_summary": "Résumé du patient",
+  "medications_table": "Médicaments évalués",
+  "findings_section": "Résultats de déprescription",
+  "anticholinergic_section": "Charge anticholinergique",
+  "fall_risk_section": "Médicaments augmentant le risque de chute (CDC STEADI)",
+  "omissions_section": "Sous-traitement possible (omissions de type START)",
+  "needs_data_section": "Éléments nécessitant des données supplémentaires",
+  "audit_trace_section": "Annexe de traçabilité",
+  "sources_section": "Éditions des critères, sources et mentions",
+  "do_not_stop_abruptly": "Ne pas arrêter brusquement",
+  "evidence_caution": "Prudence quant aux données probantes : l'évaluation de 2025 a relevé des références faibles ou non étayées pour certains critères.",
+  "missing_fields": "Champs manquants",
+  "empty_diagnoses": "La liste des diagnostics était vide; l'absence d'indication ne peut être présumée.",
+  "submit_review": "Lancer la revue des médicaments",
+  "paste_json": "Coller le JSON du patient",
+  "references_link": "Références",
+  "language_toggle": "English"
+}

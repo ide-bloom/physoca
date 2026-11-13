@@ -1,0 +1,20 @@
+{
+  "app_title": "Physoca — Deprescribing Decision Support",
+  "patient_summary": "Patient Summary",
+  "medications_table": "Medications Reviewed",
+  "findings_section": "Deprescribing Findings",
+  "anticholinergic_section": "Anticholinergic Burden",
+  "fall_risk_section": "Fall-Risk-Increasing Drugs (CDC STEADI)",
+  "omissions_section": "Possible Under-Treatment (START-Style Omissions)",
+  "needs_data_section": "Items Requiring Additional Data",
+  "audit_trace_section": "Audit Trace Appendix",
+  "sources_section": "Criteria Editions, Sources, and Attributions",
+  "do_not_stop_abruptly": "Do not stop abruptly",
+  "evidence_caution": "Evidence caution: 2025 appraisal flagged low-level or unsupported references for selected criteria.",
+  "missing_fields": "Missing fields",
+  "empty_diagnoses": "Diagnosis list was empty; absence of an indication cannot be assumed.",
+  "submit_review": "Run Medication Review",
+  "paste_json": "Paste patient JSON",
+  "references_link": "References",
+  "language_toggle": "Français"
+}

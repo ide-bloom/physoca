@@ -1,0 +1,83 @@
+# Documented prescribing cascades in older adults.
+schema_version: 1
+cascades:
+  - id: CASC-001
+    index_class_or_drug: dihydropyridine_ccb
+    index_ingredients: [amlodipine, nifedipine, felodipine]
+    reaction_drug_or_class: loop_diuretic
+    reaction_ingredients: [furosemide, bumetanide, torsemide]
+    mechanism: Peripheral edema from calcium channel blocker treated with a loop diuretic.
+    source_id: savage_2020
+    verified: true
+  - id: CASC-002
+    index_class_or_drug: anticholinergic
+    index_ingredients: [oxybutynin, tolterodine, amitriptyline, diphenhydramine]
+    reaction_drug_or_class: proton_pump_inhibitor
+    reaction_ingredients: [omeprazole, pantoprazole, lansoprazole, rabeprazole, esomeprazole]
+    mechanism: Anticholinergic-induced reflux or dyspepsia treated with a PPI.
+    source_id: trenaman_2022
+    verified: true
+  - id: CASC-003
+    index_class_or_drug: nsaid
+    index_ingredients: [ibuprofen, naproxen, diclofenac, meloxicam]
+    reaction_drug_or_class: antihypertensive
+    reaction_ingredients: [amlodipine, ramipril, hydrochlorothiazide, furosemide]
+    mechanism: NSAID-induced blood pressure elevation treated with an antihypertensive.
+    source_id: sternberg_2021
+    verified: false
+  - id: CASC-004
+    index_class_or_drug: nsaid
+    index_ingredients: [ibuprofen, naproxen, diclofenac, meloxicam]
+    reaction_drug_or_class: proton_pump_inhibitor
+    reaction_ingredients: [omeprazole, pantoprazole, lansoprazole]
+    mechanism: NSAID-induced dyspepsia treated with a PPI.
+    source_id: sternberg_2021
+    verified: false
+  - id: CASC-005
+    index_class_or_drug: cholinesterase_inhibitor
+    index_ingredients: [donepezil, rivastigmine, galantamine]
+    reaction_drug_or_class: urinary_anticholinergic
+    reaction_ingredients: [oxybutynin, tolterodine, solifenacin]
+    mechanism: Cholinesterase-inhibitor-induced urinary incontinence treated with an antimuscarinic.
+    source_id: sternberg_2021
+    verified: false
+  - id: CASC-006
+    index_class_or_drug: antipsychotic
+    index_ingredients: [haloperidol, risperidone, olanzapine]
+    reaction_drug_or_class: antiparkinsonian
+    reaction_ingredients: [benztropine, levodopa]
+    mechanism: Drug-induced parkinsonism treated with antiparkinsonian therapy.
+    source_id: sternberg_2021
+    verified: false
+  - id: CASC-007
+    index_class_or_drug: metoclopramide
+    index_ingredients: [metoclopramide]
+    reaction_drug_or_class: antiparkinsonian
+    reaction_ingredients: [levodopa, benztropine]
+    mechanism: Metoclopramide-induced extrapyramidal symptoms treated with antiparkinsonian therapy.
+    source_id: sternberg_2021
+    verified: false
+  - id: CASC-008
+    index_class_or_drug: lithium
+    index_ingredients: [lithium]
+    reaction_drug_or_class: thyroid_hormone
+    reaction_ingredients: [levothyroxine]
+    mechanism: Lithium-induced hypothyroidism treated with levothyroxine.
+    source_id: sternberg_2021
+    verified: false
+  - id: CASC-009
+    index_class_or_drug: thiazide_diuretic
+    index_ingredients: [hydrochlorothiazide, chlorthalidone, indapamide]
+    reaction_drug_or_class: antigout
+    reaction_ingredients: [allopurinol, colchicine]
+    mechanism: Thiazide-induced hyperuricemia or gout treated with urate-lowering therapy.
+    source_id: sternberg_2021
+    verified: false
+  - id: CASC-010
+    index_class_or_drug: gabapentinoid
+    index_ingredients: [gabapentin, pregabalin]
+    reaction_drug_or_class: loop_diuretic
+    reaction_ingredients: [furosemide]
+    mechanism: Gabapentinoid-induced peripheral edema treated with a loop diuretic.
+    source_id: sternberg_2021
+    verified: false

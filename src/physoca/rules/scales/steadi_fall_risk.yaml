@@ -1,0 +1,27 @@
+# CDC STEADI Medications Linked to Falls
+source_id: cdc_steadi
+classes:
+  benzodiazepines_and_zdrugs:
+    label_en: "Benzodiazepines and Z-drugs"
+    label_fr: "Benzodiazépines et médicaments Z"
+    ingredients: [alprazolam, bromazepam, clonazepam, diazepam, lorazepam, oxazepam, temazepam, triazolam, zopiclone, zolpidem]
+  antidepressants:
+    label_en: "Antidepressants (TCAs, SSRIs, SNRIs)"
+    label_fr: "Antidépresseurs (ATC, ISRS, IRSN)"
+    ingredients: [amitriptyline, nortriptyline, paroxetine, sertraline, citalopram, trazodone, venlafaxine, duloxetine]
+  antipsychotics:
+    label_en: "Antipsychotics"
+    label_fr: "Antipsychotiques"
+    ingredients: [risperidone, quetiapine, olanzapine, haloperidol]
+  opioids:
+    label_en: "Opioid analgesics"
+    label_fr: "Analgésiques opioïdes"
+    ingredients: [morphine, hydromorphone, oxycodone, fentanyl, tramadol, codeine]
+  anticholinergics_and_antihistamines:
+    label_en: "Sedating antihistamines and antimuscarinics"
+    label_fr: "Antihistaminiques sédatifs et antimuscariniques"
+    ingredients: [diphenhydramine, dimenhydrinate, hydroxyzine, chlorpheniramine, oxybutynin, tolterodine, solifenacin]
+  gabapentinoids:
+    label_en: "Gabapentinoids"
+    label_fr: "Gabapentinoïdes"
+    ingredients: [gabapentin, pregabalin]

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+  <meta charset="utf-8">
+  <title>{{ t.app_title }}</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <style>
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 0.9rem; }
+    .pill-group { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.45rem; }
+    .pill-check { display: inline-flex; align-items: center; gap: 0.45rem; background: var(--surface); border: none; box-shadow: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light); padding: 0.4rem 0.85rem; border-radius: 999px; cursor: pointer; font-size: 0.86rem; font-weight: 600; color: var(--muted); transition: all 0.15s ease; }
+    .pill-check:has(input:checked) { background: var(--consider-bg); box-shadow: inset 3px 3px 6px var(--shadow-dark), inset -3px -3px 6px var(--shadow-light); color: var(--accent-deep); }
+    .pill-check input { width: auto; margin: 0; }
+    .quick-chips { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 0.9rem; }
+    .chip-btn { background: var(--surface); color: var(--accent-deep); border: none; box-shadow: 3px 3px 6px var(--shadow-dark), -3px -3px 6px var(--shadow-light); padding: 0.35rem 0.75rem; border-radius: 999px; font-size: 0.8rem; font-weight: 700; cursor: pointer; transition: all 0.15s ease; }
+    .chip-btn:hover { transform: translateY(-1px); color: var(--fg); }
+    .med-row { display: grid; grid-template-columns: 2fr 0.9fr 0.9fr 1.1fr 1.2fr auto; gap: 0.55rem; align-items: end; margin-bottom: 0.75rem; padding: 0.85rem; background: var(--surface); box-shadow: 5px 5px 10px var(--shadow-dark), -5px -5px 10px var(--shadow-light); border-radius: 14px; animation: fadeSlide 0.25s ease both; }
+    .btn-secondary { background: var(--surface); color: var(--fg); border: none; box-shadow: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light); padding: 0.45rem 0.9rem; border-radius: 10px; cursor: pointer; font-weight: 700; font-size: 0.84rem; }
+    .btn-danger { background: var(--urgent-bg); color: var(--urgent-bd); border: none; box-shadow: 3px 3px 6px var(--shadow-dark), -3px -3px 6px var(--shadow-light); padding: 0.5rem 0.75rem; border-radius: 10px; cursor: pointer; font-weight: 700; }
+    .note-item { display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; padding: 0.45rem 0.65rem; border-radius: 10px; background: var(--surface); box-shadow: 3px 3px 6px var(--shadow-dark), -3px -3px 6px var(--shadow-light); margin-bottom: 0.45rem; cursor: pointer; font-size: 0.84rem; font-weight: 600; color: var(--fg); }
+    .note-item:hover { color: var(--accent-deep); }
+    .tabs { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+    .tab-btn { padding: 0.5rem 1rem; border: 1px solid var(--border); background: var(--surface); border-radius: 8px; cursor: pointer; font-weight: 700; color: var(--muted); }
+    .tab-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2dd4bf" stroke-width="2.2"><rect x="3" y="8" width="18" height="8" rx="4"/><line x1="12" y1="8" x2="12" y2="16"/></svg>
+        </div>
+        <div>
+          <h1>Physoca</h1>
+          <small>Deprescribing Engine</small>
+        </div>
+      </div>
+
+      <div class="status-pill">
+        <span class="pulse-dot" aria-hidden="true"></span>
+        <span>Deterministic &bull; Offline</span>
+      </div>
+
+      <div class="preset-box">
+        <h3>Quick Clinical Presets</h3>
+        <button type="button" class="preset-btn" onclick="loadPreset('poly')">81F Polypharmacy + Falls</button>
+        <button type="button" class="preset-btn" onclick="loadPreset('dm')">74M Diabetes + CKD</button>
+        <button type="button" class="preset-btn" onclick="loadPreset('ltc')">86F LTC Dementia + Antipsychotic</button>
+        <button type="button" class="preset-btn" onclick="loadPreset('opioid')">79M Opioid + BZD + Gabapentin</button>
+        <button type="button" class="preset-btn" onclick="loadPreset('nsaid')">72F NSAID + Anticoagulant</button>
+        <button type="button" class="preset-btn" onclick="loadPreset('asa')">68M Primary Prevention ASA</button>
+        <button type="button" class="preset-btn" onclick="loadPreset('clear')">Clear Form</button>
+      </div>
+
+      <nav class="nav-links">
+        <a href="/references?lang={{ lang }}">{{ t.references_link }}</a>
+        <a href="/?lang={{ 'fr' if lang == 'en' else 'en' }}">{{ t.language_toggle }}</a>
+      </nav>
+
+      <div style="margin-top: 0.5rem; display: flex; gap: 0.6rem; align-items: center;">
+        <button type="button" class="preset-btn" style="margin:0; width:auto; padding:0.55rem 0.75rem;" onclick="toggleTheme()" title="Toggle Dark/Light Mode" aria-label="Toggle Dark/Light Mode">
+          <svg id="theme-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button type="button" class="preset-btn" style="margin:0; flex:1;" onclick="toggleNotepad()">Clinician Notepad</button>
+      </div>
+    </aside>
+
+    <div style="display:flex; gap:1.5rem; align-items:flex-start; flex:1;">
+    <main class="main-content" style="flex:1;">
+      <div class="tabs no-print">
+        <button type="button" class="tab-btn active" id="tab-form" onclick="switchTab('form')">Clinical Form</button>
+        <button type="button" class="tab-btn" id="tab-json" onclick="switchTab('json')">{{ t.paste_json }}</button>
+      </div>
+
+      <form method="post" action="/review" id="review-form">
+        <input type="hidden" name="lang" value="{{ lang }}">
+        <input type="hidden" name="patient_json" id="patient_json_hidden">
+
+        <div id="panel-form">
+          <section class="card">
+            <h2 style="margin-top:0;">{{ t.patient_summary }}</h2>
+            <div class="grid-2">
+              <div><label>Age (years)<input type="number" id="f_age" value="78" min="0" max="120" required></label></div>
+              <div><label>Sex<select id="f_sex"><option value="female">Female</option><option value="male">Male</option><option value="unspecified">Unspecified</option></select></label></div>
+              <div><label>Care Setting<select id="f_setting"><option value="community">Community</option><option value="long_term_care">Long-Term Care</option><option value="hospital">Hospital</option></select></label></div>
+              <div><label>Serum Creatinine (&micro;mol/L)<input type="number" id="f_scr" value="95" step="0.1"></label></div>
+              <div><label>Weight (kg, optional)<input type="number" id="f_weight" step="0.1" placeholder="e.g. 65"></label></div>
+              <div><label>Clinical Frailty Scale (1-9)<input type="number" id="f_cfs" min="1" max="9" placeholder="optional"></label></div>
+              <div><label>A1c (%, optional)<input type="number" id="f_a1c" step="0.1" placeholder="e.g. 6.8"></label></div>
+              <div><label>Diagnoses (ICD-10 or text)<input type="text" id="f_dx" value="I10" placeholder="e.g. I10, F03, GERD"></label></div>
+            </div>
+            <div style="margin-top: 1rem;">
+              <strong style="font-size:0.84rem; color:var(--muted);">History Flags</strong>
+              <div class="pill-group">
+                <label class="pill-check"><input type="checkbox" name="hflag" value="falls" checked> Falls</label>
+                <label class="pill-check"><input type="checkbox" name="hflag" value="hypoglycemia"> Hypoglycemia</label>
+                <label class="pill-check"><input type="checkbox" name="hflag" value="gi_bleed"> GI Bleed</label>
+                <label class="pill-check"><input type="checkbox" name="hflag" value="delirium"> Delirium</label>
+                <label class="pill-check"><input type="checkbox" name="hflag" value="failed_ppi_discontinuation"> Failed PPI Stop</label>
+                <label class="pill-check"><input type="checkbox" name="hflag" value="life_expectancy_limited"> Limited Life Expectancy</label>
+                <label class="pill-check"><input type="checkbox" name="hflag" value="palliative_care"> Palliative Care</label>
+                <label class="pill-check"><input type="checkbox" name="hflag" value="orthostatic_hypotension"> Orthostatic Hypotension</label>
+                <label class="pill-check"><input type="checkbox" name="hflag" value="urinary_retention"> Urinary Retention</label>
+                <label class="pill-check"><input type="checkbox" name="hflag" value="chronic_constipation"> Chronic Constipation</label>
+                <label class="pill-check"><input type="checkbox" name="hflag" value="cognitive_decline"> Cognitive Decline</label>
+              </div>
+            </div>
+          </section>
+
+          <section class="card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.7rem;">
+              <h2 style="margin:0;">{{ t.medications_table }}</h2>
+              <button type="button" class="btn-secondary" onclick="addMedRow()">+ Add Row</button>
+            </div>
+            <div class="quick-chips">
+              <button type="button" class="chip-btn" onclick="addMedRow('Pantoprazole','40','mg','daily','2026-01-10')">+ Pantoprazole</button>
+              <button type="button" class="chip-btn" onclick="addMedRow('Omeprazole','20','mg','daily','2026-01-10')">+ Omeprazole</button>
+              <button type="button" class="chip-btn" onclick="addMedRow('Lorazepam','1','mg','qhs','2026-02-01')">+ Lorazepam</button>
+              <button type="button" class="chip-btn" onclick="addMedRow('Zopiclone','7.5','mg','qhs','2026-02-01')">+ Zopiclone</button>
+              <button type="button" class="chip-btn" onclick="addMedRow('Diphenhydramine','25','mg','qhs','2026-01-15')">+ Diphenhydramine</button>
+              <button type="button" class="chip-btn" onclick="addMedRow('Amitriptyline','25','mg','qhs','2025-09-01')">+ Amitriptyline</button>
+              <button type="button" class="chip-btn" onclick="addMedRow('Oxybutynin','5','mg','bid','2025-10-01')">+ Oxybutynin</button>
+              <button type="button" class="chip-btn" onclick="addMedRow('Glyburide','5','mg','bid','2025-11-01')">+ Glyburide</button>
+              <button type="button" class="chip-btn" onclick="addMedRow('Acetylsalicylic acid','81','mg','daily','2024-05-01')">+ ASA 81mg</button>
+              <button type="button" class="chip-btn" onclick="addMedRow('Naproxen','500','mg','bid','2025-11-01')">+ Naproxen</button>
+              <button type="button" class="chip-btn" onclick="addMedRow('Risperidone','0.5','mg','qhs','2026-01-10')">+ Risperidone</button>
+              <button type="button" class="chip-btn" onclick="addMedRow('Digoxin','0.25','mg','daily','2025-10-01')">+ Digoxin</button>
+              <button type="button" class="chip-btn" onclick="addMedRow('Hydromorphone','2','mg','bid','2026-01-20')">+ Hydromorphone</button>
+              <button type="button" class="chip-btn" onclick="addMedRow('Pregabalin','75','mg','bid','2026-02-10')">+ Pregabalin</button>
+            </div>
+            <div id="med-rows"></div>
+          </section>
+        </div>
+
+        <div id="panel-json" class="hidden card">
+          <label for="patient_json_raw"><strong>{{ t.paste_json }}</strong></label>
+          <textarea id="patient_json_raw" rows="16">{{ sample_json }}</textarea>
+        </div>
+
+        <p><button class="btn" type="submit" onclick="prepareSubmit()">{{ t.submit_review }}</button></p>
+      </form>
+
+      <footer>
+        <p>{{ intended_use }}</p>
+      </footer>
+    </main>
+
+    <aside id="notepad-panel" class="hidden" style="flex: 1; min-width: 340px;">
+      <div class="card" style="margin-bottom: 1rem;">
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+          <h2 style="margin:0; font-size:1.1rem;">{{ 'Blocs-notes clinicien' if lang == 'fr' else 'Clinician Notepads' }}</h2>
+          <div style="display:flex; gap:0.5rem;">
+            <button type="button" class="btn-secondary" onclick="openNewNotepad()">{{ '+ Nouveau bloc-notes' if lang == 'fr' else '+ New Notepad' }}</button>
+            <button type="button" class="btn-danger" onclick="clearAllNotes()">{{ 'Tout effacer' if lang == 'fr' else 'Clear All Saved' }}</button>
+          </div>
+        </div>
+        <div id="saved-notes-list" style="margin-top:0.75rem; display:flex; flex-wrap:wrap; gap:0.45rem;"></div>
+      </div>
+      <div id="notepad-grid" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem;"></div>
+    </aside>
+    </div>
+  </div>
+
+  <script>
+    let mode = 'form';
+    function switchTab(m) {
+      mode = m;
+      document.getElementById('panel-form').classList.toggle('hidden', m !== 'form');
+      document.getElementById('panel-json').classList.toggle('hidden', m !== 'json');
+      document.getElementById('tab-form').classList.toggle('active', m === 'form');
+      document.getElementById('tab-json').classList.toggle('active', m === 'json');
+    }
+    function addMedRow(name = '', dose = '', unit = 'mg', freq = 'daily', start = '2026-01-10') {
+      const div = document.createElement('div');
+      div.className = 'med-row';
+      div.innerHTML = `
+        <div><label>Name<input type="text" class="m-name" value="${name}" placeholder="e.g. Lorazepam" required></label></div>
+        <div><label>Dose<input type="number" step="any" class="m-dose" value="${dose}" placeholder="1"></label></div>
+        <div><label>Unit<input type="text" class="m-unit" value="${unit}"></label></div>
+        <div><label>Frequency<input type="text" class="m-freq" value="${freq}"></label></div>
+        <div><label>Start Date<input type="date" class="m-start" value="${start}"></label></div>
+        <div><button type="button" class="btn-danger" onclick="this.closest('.med-row').remove()">&times;</button></div>
+      `;
+      document.getElementById('med-rows').appendChild(div);
+    }
+    function loadPreset(key) {
+      document.getElementById('med-rows').innerHTML = '';
+      document.querySelectorAll('input[name="hflag"]').forEach(el => el.checked = false);
+      if (key === 'poly') {
+        document.getElementById('f_age').value = 81;
+        document.getElementById('f_sex').value = 'female';
+        document.getElementById('f_scr').value = 115;
+        document.getElementById('f_weight').value = 62;
+        document.getElementById('f_cfs').value = 6;
+        document.getElementById('f_dx').value = 'F03, I10';
+        document.querySelector('input[value="falls"]').checked = true;
+        addMedRow('Pantoprazole', '40', 'mg', 'daily', '2026-01-15');
+        addMedRow('Lorazepam', '1', 'mg', 'qhs', '2026-03-01');
+        addMedRow('Amitriptyline', '25', 'mg', 'qhs', '2025-09-01');
+      } else if (key === 'dm') {
+        document.getElementById('f_age').value = 74;
+        document.getElementById('f_sex').value = 'male';
+        document.getElementById('f_setting').value = 'community';
+        document.getElementById('f_scr').value = 145;
+        document.getElementById('f_a1c').value = 6.3;
+        document.getElementById('f_dx').value = 'E11, I10';
+        document.querySelector('input[value="hypoglycemia"]').checked = true;
+        addMedRow('Glyburide', '5', 'mg', 'bid', '2025-11-01');
+        addMedRow('Digoxin', '0.25', 'mg', 'daily', '2025-10-01');
+      } else if (key === 'ltc') {
+        document.getElementById('f_age').value = 86;
+        document.getElementById('f_sex').value = 'female';
+        document.getElementById('f_setting').value = 'long_term_care';
+        document.getElementById('f_scr').value = 98;
+        document.getElementById('f_cfs').value = 7;
+        document.getElementById('f_dx').value = 'F03, I10';
+        document.querySelector('input[value="delirium"]').checked = true;
+        addMedRow('Risperidone', '0.5', 'mg', 'qhs', '2026-01-10');
+        addMedRow('Lorazepam', '0.5', 'mg', 'qhs', '2026-02-15');
+        addMedRow('Pantoprazole', '40', 'mg', 'daily', '2025-12-01');
+      } else if (key === 'opioid') {
+        document.getElementById('f_age').value = 79;
+        document.getElementById('f_sex').value = 'male';
+        document.getElementById('f_setting').value = 'community';
+        document.getElementById('f_scr').value = 102;
+        document.getElementById('f_dx').value = 'M54.5';
+        document.querySelector('input[value="falls"]').checked = true;
+        addMedRow('Hydromorphone', '2', 'mg', 'bid', '2026-01-20');
+        addMedRow('Lorazepam', '1', 'mg', 'qhs', '2026-03-01');
+        addMedRow('Pregabalin', '75', 'mg', 'bid', '2026-02-10');
+      } else if (key === 'nsaid') {
+        document.getElementById('f_age').value = 72;
+        document.getElementById('f_sex').value = 'female';
+        document.getElementById('f_setting').value = 'community';
+        document.getElementById('f_scr').value = 132;
+        document.getElementById('f_dx').value = 'I48, M17';
+        document.querySelector('input[value="gi_bleed"]').checked = true;
+        addMedRow('Naproxen', '500', 'mg', 'bid', '2025-11-01');
+        addMedRow('Apixaban', '5', 'mg', 'bid', '2025-06-01');
+      } else if (key === 'asa') {
+        document.getElementById('f_age').value = 68;
+        document.getElementById('f_sex').value = 'male';
+        document.getElementById('f_setting').value = 'community';
+        document.getElementById('f_scr').value = 84;
+        document.getElementById('f_dx').value = 'I10';
+        addMedRow('Acetylsalicylic acid', '81', 'mg', 'daily', '2024-05-01');
+      } else {
+        document.getElementById('f_age').value = 70;
+        document.getElementById('f_scr').value = '';
+        document.getElementById('f_weight').value = '';
+        document.getElementById('f_cfs').value = '';
+        document.getElementById('f_a1c').value = '';
+        document.getElementById('f_dx').value = '';
+        addMedRow();
+      }
+    }
+    function prepareSubmit() {
+      if (mode === 'json') {
+        document.getElementById('patient_json_hidden').value = document.getElementById('patient_json_raw').value;
+        return;
+      }
+      const flags = Array.from(document.querySelectorAll('input[name="hflag"]:checked')).map(el => el.value);
+      const dx = document.getElementById('f_dx').value.split(',').map(s => s.trim()).filter(Boolean);
+      const patient = {
+        age_years: parseInt(document.getElementById('f_age').value, 10),
+        sex: document.getElementById('f_sex').value,
+        care_setting: document.getElementById('f_setting').value,
+        history_flags: flags,
+        diagnoses: dx
+      };
+      const scr = document.getElementById('f_scr').value;
+      if (scr) patient.serum_creatinine_umol_l = parseFloat(scr);
+      const wt = document.getElementById('f_weight').value;
+      if (wt) patient.weight_kg = parseFloat(wt);
+      const cfs = document.getElementById('f_cfs').value;
+      if (cfs) patient.clinical_frailty_scale = parseInt(cfs, 10);
+      const a1c = document.getElementById('f_a1c').value;
+      if (a1c) patient.a1c_percent = parseFloat(a1c);
+
+      const meds = Array.from(document.querySelectorAll('.med-row')).map(row => {
+        const m = {
+          name: row.querySelector('.m-name').value,
+          unit: row.querySelector('.m-unit').value || 'mg',
+          frequency: row.querySelector('.m-freq').value || 'daily'
+        };
+        const d = row.querySelector('.m-dose').value;
+        if (d) m.dose = parseFloat(d);
+        const s = row.querySelector('.m-start').value;
+        if (s) m.start_date = s;
+        return m;
+      });
+      document.getElementById('patient_json_hidden').value = JSON.stringify({ patient, medications: meds });
+    }
+    function toggleTheme() {
+      const html = document.documentElement;
+      const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('physoca_theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('physoca_theme');
+      if (saved) document.documentElement.setAttribute('data-theme', saved);
+    })();
+    function toggleNotepad() {
+      const panel = document.getElementById('notepad-panel');
+      panel.classList.toggle('hidden');
+      if (!panel.classList.contains('hidden') && document.getElementById('notepad-grid').children.length === 0) {
+        openNewNotepad();
+      }
+      renderNotes();
+    }
+    function openNewNotepad(title = '', body = '') {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.style.marginBottom = '0';
+      card.innerHTML = `
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
+          <strong style="font-size:0.9rem; color:var(--muted);">Notepad</strong>
+          <button type="button" class="btn-danger" style="padding:0.2rem 0.55rem;" onclick="this.closest('.card').remove()">&times;</button>
+        </div>
+        <input type="text" class="np-title" placeholder="Note title (e.g. Room 204)" value="${title.replace(/"/g, '&quot;')}">
+        <textarea class="np-body" rows="8" placeholder="Write clinical notes here..." style="margin-top:0.5rem;">${body}</textarea>
+        <div style="display:flex; gap:0.5rem; margin-top:0.6rem;">
+          <button type="button" class="btn-secondary" style="flex:1;" onclick="saveNotepadCard(this)">Save Note</button>
+          <button type="button" class="btn-secondary" onclick="const c=this.closest('.card'); c.querySelector('.np-title').value=''; c.querySelector('.np-body').value='';">Clear</button>
+        </div>
+      `;
+      document.getElementById('notepad-grid').appendChild(card);
+    }
+    function getNotes() {
+      try { return JSON.parse(localStorage.getItem('physoca_notes') || '[]'); } catch { return []; }
+    }
+    function saveNotepadCard(btn) {
+      const card = btn.closest('.card');
+      const title = card.querySelector('.np-title').value.trim() || 'Untitled Note';
+      const body = card.querySelector('.np-body').value;
+      if (!body.trim()) return;
+      const notes = getNotes();
+      notes.unshift({ id: Date.now(), title, body });
+      localStorage.setItem('physoca_notes', JSON.stringify(notes));
+      renderNotes();
+    }
+    function loadNote(id) {
+      const note = getNotes().find(n => n.id === id);
+      if (!note) return;
+      openNewNotepad(note.title, note.body);
+    }
+    function deleteNote(id, ev) {
+      ev.stopPropagation();
+      const notes = getNotes().filter(n => n.id !== id);
+      localStorage.setItem('physoca_notes', JSON.stringify(notes));
+      renderNotes();
+    }
+    function clearAllNotes() {
+      localStorage.removeItem('physoca_notes');
+      renderNotes();
+    }
+    function renderNotes() {
+      const list = document.getElementById('saved-notes-list');
+      const notes = getNotes();
+      list.innerHTML = notes.map(n => `
+        <div class="note-item" style="margin-bottom:0;" onclick="loadNote(${n.id})">
+          <span>${n.title}</span>
+          <button type="button" class="btn-danger" style="padding:0.15rem 0.45rem;" onclick="deleteNote(${n.id}, event)">&times;</button>
+        </div>
+      `).join('');
+    }
+    loadPreset('poly');
+  </script>
+</body>
+</html>

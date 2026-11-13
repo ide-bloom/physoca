@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Physoca Rule Pack",
+  "type": "object",
+  "required": ["schema_version", "pack", "pack_version", "rules"],
+  "properties": {
+    "schema_version": {"type": "integer", "const": 1},
+    "pack": {"type": "string", "minLength": 1},
+    "pack_version": {"type": "string", "minLength": 1},
+    "rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "version",
+          "status",
+          "title",
+          "category",
+          "severity",
+          "population",
+          "rationale",
+          "action",
+          "taper",
+          "evidence",
+          "sources",
+          "i18n"
+        ],
+        "properties": {
+          "id": {"type": "string", "pattern": "^PHY-[A-Z]+-[0-9]{3}$"},
+          "version": {"type": "integer", "minimum": 1},
+          "status": {"type": "string", "enum": ["active", "draft", "retired"]},
+          "kind": {"type": "string", "enum": ["deprescribing", "omission"]},
+          "title": {"type": "string", "minLength": 1},
+          "category": {"type": "string", "minLength": 1},
+          "severity": {"type": "string", "enum": ["consider", "review", "urgent"]},
+          "population": {
+            "type": "object",
+            "properties": {
+              "age_min": {"type": "integer", "minimum": 0, "maximum": 120}
+            }
+          },
+          "target": {"type": "object"},
+          "set_rule": {"type": "object"},
+          "scoring": {"type": "object"},
+          "when": {"type": "object"},
+          "exempt_if": {"type": "object"},
+          "downgrade_if": {"type": "object"},
+          "escalate_if": {"type": "object"},
+          "rationale": {"type": "string", "minLength": 1},
+          "action": {"type": "string", "minLength": 1},
+          "alternatives": {"type": "string"},
+          "taper": {
+            "type": "object",
+            "required": ["needed", "abrupt_stop_risk", "note"],
+            "properties": {
+              "needed": {"type": "boolean"},
+              "abrupt_stop_risk": {"type": "string", "enum": ["low", "moderate", "high"]},
+              "note": {"type": "string"}
+            }
+          },
+          "evidence": {
+            "type": "object",
+            "required": ["quality", "strength", "rating_verified", "caution"],
+            "properties": {
+              "quality": {"type": "string"},
+              "strength": {"type": "string"},
+              "rating_verified": {"type": "boolean"},
+              "caution": {"type": "boolean"},
+              "note": {"type": "string"}
+            }
+          },
+          "sources": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": ["id", "locator", "verified"],
+              "properties": {
+                "id": {"type": "string", "minLength": 1},
+                "locator": {"type": "string", "minLength": 1},
+                "verified": {"type": "boolean"}
+              }
+            }
+          },
+          "i18n": {
+            "type": "object",
+            "required": ["fr"],
+            "properties": {
+              "fr": {
+                "type": "object",
+                "required": ["title", "rationale", "action"],
+                "properties": {
+                  "title": {"type": "string", "minLength": 1},
+                  "rationale": {"type": "string", "minLength": 1},
+                  "action": {"type": "string", "minLength": 1},
+                  "alternatives": {"type": "string"},
+                  "taper_note": {"type": "string"}
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
