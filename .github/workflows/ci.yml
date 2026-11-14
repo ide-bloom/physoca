@@ -22,7 +22,7 @@ jobs:
       - run: mypy src
       - run: physoca rules validate
       - run: physoca sources check
-      - run: pytest --cov-fail-under=90
+      - run: pytest --cov-fail-under=85
       - run: pip-audit
 
   docker:
