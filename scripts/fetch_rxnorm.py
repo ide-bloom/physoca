@@ -6,7 +6,9 @@ import argparse
 import os
 from pathlib import Path
 
-RXNORM_PRESCRIBABLE_URL = "https://download.nlm.nih.gov/umls/kss/rxnorm/RxNorm_full_prescribable_current.zip"
+RXNORM_PRESCRIBABLE_URL = (
+    "https://download.nlm.nih.gov/umls/kss/rxnorm/RxNorm_full_prescribable_current.zip"
+)
 
 
 def main() -> None:

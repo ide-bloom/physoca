@@ -18,7 +18,9 @@ _SALT_PATTERN = re.compile(
     r"bromide|nitrate|monohydrate|dihydrate|er|xr|sr|cr|dr|ec)\b",
     re.IGNORECASE,
 )
-_STRENGTH_PATTERN = re.compile(r"\b\d+(?:\.\d+)?\s*(?:mg|mcg|ug|g|ml|%)(?:/\d+(?:\.\d+)?\s*(?:mg|ml))?\b", re.IGNORECASE)
+_STRENGTH_PATTERN = re.compile(
+    r"\b\d+(?:\.\d+)?\s*(?:mg|mcg|ug|g|ml|%)(?:/\d+(?:\.\d+)?\s*(?:mg|ml))?\b", re.IGNORECASE
+)
 
 
 def clean_drug_name(raw_name: str) -> str:

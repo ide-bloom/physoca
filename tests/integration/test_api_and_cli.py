@@ -24,7 +24,9 @@ def test_api_endpoints() -> None:
     assert sources_resp.status_code == 200
     assert sources_resp.json()[0]["jurisdiction"] in {"CA", "ON", "QC", "BC", "AB"}
 
-    fixture = json.loads(Path("tests/fixtures/patient_polypharmacy.json").read_text(encoding="utf-8"))
+    fixture = json.loads(
+        Path("tests/fixtures/patient_polypharmacy.json").read_text(encoding="utf-8")
+    )
     rev = client.post("/api/review", json=fixture)
     assert rev.status_code == 200
     assert rev.headers.get("cache-control") == "no-store"

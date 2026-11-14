@@ -40,7 +40,10 @@ def build_review_report(
         missing.append("diagnoses (empty)")
 
     suggested_a1c_note: str | None = None
-    if patient.individualized_a1c_target_percent is None and patient.clinical_frailty_scale is not None:
+    if (
+        patient.individualized_a1c_target_percent is None
+        and patient.clinical_frailty_scale is not None
+    ):
         cfs = patient.clinical_frailty_scale
         if cfs <= 3:
             suggested_a1c_note = "Suggested Diabetes Canada target (unverified): <=7.0% (low hypoglycemia risk) or 7.1-7.5% (insulin/sulfonylurea)."

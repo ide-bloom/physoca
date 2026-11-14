@@ -32,8 +32,20 @@ _SAMPLE_JSON = json.dumps(
             "diagnoses": ["I10"],
         },
         "medications": [
-            {"name": "Pantoprazole", "dose": 40, "unit": "mg", "frequency": "daily", "start_date": "2026-01-10"},
-            {"name": "Lorazepam", "dose": 1, "unit": "mg", "frequency": "qhs", "start_date": "2026-02-01"},
+            {
+                "name": "Pantoprazole",
+                "dose": 40,
+                "unit": "mg",
+                "frequency": "daily",
+                "start_date": "2026-01-10",
+            },
+            {
+                "name": "Lorazepam",
+                "dose": 1,
+                "unit": "mg",
+                "frequency": "qhs",
+                "start_date": "2026-02-01",
+            },
         ],
     },
     indent=2,

@@ -108,9 +108,19 @@ def check_sources_integrity() -> list[str]:
                 else:
                     cited_by_rules.add(sid)
 
-    allowed_uncited_roles = {"context", "legal", "data_source", "patient_resource_link", "scoring_data"}
+    allowed_uncited_roles = {
+        "context",
+        "legal",
+        "data_source",
+        "patient_resource_link",
+        "scoring_data",
+    }
     for sid, entry in source_map.items():
-        if sid not in cited_by_rules and not entry.get("used_by") and entry.get("role") not in allowed_uncited_roles:
+        if (
+            sid not in cited_by_rules
+            and not entry.get("used_by")
+            and entry.get("role") not in allowed_uncited_roles
+        ):
             errors.append(f"Source '{sid}' is unused and not marked context")
 
     return errors

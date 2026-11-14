@@ -44,7 +44,9 @@ def test_duration_exact_days(start: date, days: int) -> None:
 @settings(max_examples=30, deadline=None)
 @given(
     age=st.integers(min_value=0, max_value=120),
-    med_names=st.lists(st.sampled_from(["Pantoprazole", "Lorazepam", "Digoxin", "UnknownX"]), max_size=5),
+    med_names=st.lists(
+        st.sampled_from(["Pantoprazole", "Lorazepam", "Digoxin", "UnknownX"]), max_size=5
+    ),
 )
 def test_report_never_raises_on_valid_input(age: int, med_names: list[str]) -> None:
     p = Patient(age_years=age, sex=Sex.FEMALE)

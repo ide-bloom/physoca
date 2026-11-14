@@ -35,9 +35,9 @@ def compute_fall_risk_summary(
         return FallRiskSummary(applicable=False)
 
     reason = (
-        "Antécédent de chutes consigné" if has_falls else "Âge de 80 ans ou plus"
-    ) if lang == "fr" else (
-        "Falls history flag present" if has_falls else "Age 80 years or over"
+        ("Antécédent de chutes consigné" if has_falls else "Âge de 80 ans ou plus")
+        if lang == "fr"
+        else ("Falls history flag present" if has_falls else "Age 80 years or over")
     )
 
     steadi = _load_steadi()

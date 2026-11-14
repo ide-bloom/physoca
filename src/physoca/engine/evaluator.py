@@ -175,8 +175,16 @@ def evaluate_patient(
             if rule.get("kind") == "omission":
                 when_res = evaluate_predicate(rule.get("when", {}), ctx)
                 if when_res.matched is None:
-                    audit_trace.append(make_audit_entry(rid, rver, "needs_data", missing_fields=when_res.missing_fields))
-                    needs_data.append(NeedsDataItem(rule_id=rid, title=title, missing_fields=when_res.missing_fields))
+                    audit_trace.append(
+                        make_audit_entry(
+                            rid, rver, "needs_data", missing_fields=when_res.missing_fields
+                        )
+                    )
+                    needs_data.append(
+                        NeedsDataItem(
+                            rule_id=rid, title=title, missing_fields=when_res.missing_fields
+                        )
+                    )
                     continue
                 if not when_res.matched:
                     audit_trace.append(make_audit_entry(rid, rver, "not_matched"))
@@ -184,9 +192,20 @@ def evaluate_patient(
                 if "exempt_if" in rule:
                     ex_res = evaluate_predicate(rule["exempt_if"], ctx)
                     if ex_res.matched:
-                        audit_trace.append(make_audit_entry(rid, rver, "exempted", exemptions_evaluated=ex_res.matched_conditions))
+                        audit_trace.append(
+                            make_audit_entry(
+                                rid,
+                                rver,
+                                "exempted",
+                                exemptions_evaluated=ex_res.matched_conditions,
+                            )
+                        )
                         continue
-                audit_trace.append(make_audit_entry(rid, rver, "matched", matched_conditions=when_res.matched_conditions))
+                audit_trace.append(
+                    make_audit_entry(
+                        rid, rver, "matched", matched_conditions=when_res.matched_conditions
+                    )
+                )
                 omissions.append(
                     OmissionFinding(
                         rule_id=rid,
@@ -203,7 +222,14 @@ def evaluate_patient(
             # 2. Scoring rules (e.g., PHY-ANTICH-002)
             if "scoring" in rule:
                 thresh = int(rule["scoring"].get("threshold_gte", 3))
-                if max(anticholinergic.acb_total, anticholinergic.cals_total, anticholinergic.danish_2024_total) >= thresh:
+                if (
+                    max(
+                        anticholinergic.acb_total,
+                        anticholinergic.cals_total,
+                        anticholinergic.danish_2024_total,
+                    )
+                    >= thresh
+                ):
                     sev = Severity(rule["severity"])
                     matched_conds = [f"acb_total={anticholinergic.acb_total}"]
                     renal_used = None
@@ -215,7 +241,15 @@ def evaluate_patient(
                         if esc.renal_estimate_used:
                             renal_used = esc.renal_estimate_used
                     meds_list = [d.ingredient for d in anticholinergic.contributing_drugs]
-                    audit_trace.append(make_audit_entry(rid, rver, "matched", matched_conditions=matched_conds, renal_estimate_used=renal_used))
+                    audit_trace.append(
+                        make_audit_entry(
+                            rid,
+                            rver,
+                            "matched",
+                            matched_conditions=matched_conds,
+                            renal_estimate_used=renal_used,
+                        )
+                    )
                     raw_findings.append(
                         Finding(
                             rule_ids=[rid],
@@ -243,7 +277,9 @@ def evaluate_patient(
                 if "distinct_ingredients_gte" in sr:
                     cg = sr["class_group"]
                     needed_n = int(sr["distinct_ingredients_gte"])
-                    matching_ings = sorted({m.ingredient for m in norm_meds if cg in m.class_groups})
+                    matching_ings = sorted(
+                        {m.ingredient for m in norm_meds if cg in m.class_groups}
+                    )
                     if len(matching_ings) >= needed_n:
                         sev = Severity(rule["severity"])
                         matched_conds = [f"distinct_{cg}={len(matching_ings)}"]
@@ -252,7 +288,9 @@ def evaluate_patient(
                             if esc.matched:
                                 sev = _shift_severity(sev, 1)
                                 matched_conds.extend(esc.matched_conditions)
-                        audit_trace.append(make_audit_entry(rid, rver, "matched", matched_conditions=matched_conds))
+                        audit_trace.append(
+                            make_audit_entry(rid, rver, "matched", matched_conditions=matched_conds)
+                        )
                         raw_findings.append(
                             Finding(
                                 rule_ids=[rid],
@@ -277,7 +315,14 @@ def evaluate_patient(
                     if "exempt_if" in rule:
                         ex_res = evaluate_predicate(rule["exempt_if"], ctx)
                         if ex_res.matched:
-                            audit_trace.append(make_audit_entry(rid, rver, "exempted", exemptions_evaluated=ex_res.matched_conditions))
+                            audit_trace.append(
+                                make_audit_entry(
+                                    rid,
+                                    rver,
+                                    "exempted",
+                                    exemptions_evaluated=ex_res.matched_conditions,
+                                )
+                            )
                             continue
                     pair_matched = False
                     for pair in sr["pairs"]:
@@ -289,7 +334,11 @@ def evaluate_patient(
                             pair_matched = True
                             sev = Severity(pair.get("severity", rule["severity"]))
                             combined = sorted(set(meds_a + meds_b))
-                            audit_trace.append(make_audit_entry(rid, rver, "matched", matched_conditions=[f"{cg_a}+{cg_b}"]))
+                            audit_trace.append(
+                                make_audit_entry(
+                                    rid, rver, "matched", matched_conditions=[f"{cg_a}+{cg_b}"]
+                                )
+                            )
                             raw_findings.append(
                                 Finding(
                                     rule_ids=[rid],
@@ -323,7 +372,11 @@ def evaluate_patient(
                 if when_node:
                     when_res = evaluate_predicate(when_node, ctx)
                     if when_res.matched is None:
-                        audit_trace.append(make_audit_entry(rid, rver, "needs_data", missing_fields=when_res.missing_fields))
+                        audit_trace.append(
+                            make_audit_entry(
+                                rid, rver, "needs_data", missing_fields=when_res.missing_fields
+                            )
+                        )
                         needs_data.append(
                             NeedsDataItem(
                                 rule_id=rid,
@@ -343,7 +396,14 @@ def evaluate_patient(
                 if "exempt_if" in rule:
                     ex_res = evaluate_predicate(rule["exempt_if"], ctx)
                     if ex_res.matched:
-                        audit_trace.append(make_audit_entry(rid, rver, "exempted", exemptions_evaluated=ex_res.matched_conditions))
+                        audit_trace.append(
+                            make_audit_entry(
+                                rid,
+                                rver,
+                                "exempted",
+                                exemptions_evaluated=ex_res.matched_conditions,
+                            )
+                        )
                         continue
 
                 sev = Severity(rule["severity"])
@@ -364,7 +424,11 @@ def evaluate_patient(
                 med.flags.append(f"{rid}:{sev.value}")
                 audit_trace.append(
                     make_audit_entry(
-                        rid, rver, "matched", matched_conditions=matched_conds, renal_estimate_used=renal_used
+                        rid,
+                        rver,
+                        "matched",
+                        matched_conditions=matched_conds,
+                        renal_estimate_used=renal_used,
                     )
                 )
                 raw_findings.append(

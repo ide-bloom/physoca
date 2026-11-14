@@ -53,7 +53,9 @@ def test_diagnoses_normalization() -> None:
 def test_medication_name_and_expansion() -> None:
     p = Patient(age_years=72, sex=Sex.MALE, review_date=date(2026, 11, 13))
     assert clean_drug_name("Ativan 1mg") == "ativan"
-    rows = normalize_medication(MedicationInput(name="Tramacet", dose=37.5, unit="mg", frequency="tid"), p)
+    rows = normalize_medication(
+        MedicationInput(name="Tramacet", dose=37.5, unit="mg", frequency="tid"), p
+    )
     assert len(rows) == 2
     assert {r.ingredient for r in rows} == {"tramadol", "acetaminophen"}
 

@@ -1,6 +1,12 @@
 """Command-line interface for Physoca."""
 
 from __future__ import annotations
+import os, sys
+
+if sys.stdout is None:
+    sys.stdout = open(os.devnull, "w")
+if sys.stderr is None:
+    sys.stderr = open(os.devnull, "w")
 
 import json
 import sys
@@ -126,7 +132,9 @@ def data_status() -> None:
     typer.echo(f"DPD extract date: {settings.dpd_extract_date}")
     typer.echo(f"RxNorm release:   {settings.rxnorm_release}")
     typer.echo(f"Rule pack:        {pack_ver}")
-    typer.echo(f"Source registry:  {sources.get('registry_version')} (reviewed {sources.get('last_reviewed')})")
+    typer.echo(
+        f"Source registry:  {sources.get('registry_version')} (reviewed {sources.get('last_reviewed')})"
+    )
 
 
 @data_app.command("build")
@@ -178,6 +186,7 @@ def serve(
     from physoca.api.app import app as fastapi_app
 
     if open_browser:
+
         def _open() -> None:
             time.sleep(1.0)
             webbrowser.open(f"http://127.0.0.1:{port}")

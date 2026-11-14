@@ -38,7 +38,9 @@ def merge_findings(findings: list[Finding]) -> list[Finding]:
                     seen_src.add(key)
                     sources.append(src)
 
-        highest_risk_item = max(group, key=lambda x: _ABRUPT_RISK_RANK.get(x.taper.abrupt_stop_risk, 1))
+        highest_risk_item = max(
+            group, key=lambda x: _ABRUPT_RISK_RANK.get(x.taper.abrupt_stop_risk, 1)
+        )
         taper = TaperInfo(
             needed=any(item.taper.needed for item in group),
             abrupt_stop_risk=highest_risk_item.taper.abrupt_stop_risk,

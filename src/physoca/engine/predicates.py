@@ -32,7 +32,7 @@ def evaluate_predicate(node: dict[str, Any], ctx: EvalContext) -> PredicateResul
     if "all" in node:
         conditions: list[str] = []
         renal_used: str | None = None
-        for child in node["all"]:
+        for child in node["all"] or []:
             res = evaluate_predicate(child, ctx)
             if res.renal_estimate_used:
                 renal_used = res.renal_estimate_used
@@ -46,7 +46,7 @@ def evaluate_predicate(node: dict[str, Any], ctx: EvalContext) -> PredicateResul
     if "any" in node:
         missing: list[str] = []
         renal_used = None
-        for child in node["any"]:
+        for child in node["any"] or []:
             res = evaluate_predicate(child, ctx)
             if res.renal_estimate_used:
                 renal_used = res.renal_estimate_used
@@ -115,7 +115,9 @@ def _eval_patient(spec: dict[str, Any], ctx: EvalContext) -> PredicateResult:
         return PredicateResult(bool(hit), matched_conditions=[f"flag:{h}" for h in hit])
     if "setting_any" in spec:
         ok = p.care_setting.value in spec["setting_any"]
-        return PredicateResult(ok, matched_conditions=[f"setting:{p.care_setting.value}"] if ok else [])
+        return PredicateResult(
+            ok, matched_conditions=[f"setting:{p.care_setting.value}"] if ok else []
+        )
     return PredicateResult(False)
 
 
@@ -127,12 +129,16 @@ def _eval_drug(spec: dict[str, Any], ctx: EvalContext) -> PredicateResult:
         if d.duration_days is None:
             return PredicateResult(None, missing_fields=["start_date"])
         ok = d.duration_days > int(spec["duration_days_gt"])
-        return PredicateResult(ok, matched_conditions=[f"duration_days>{spec['duration_days_gt']}"] if ok else [])
+        return PredicateResult(
+            ok, matched_conditions=[f"duration_days>{spec['duration_days_gt']}"] if ok else []
+        )
     if "dose_mg_day_gt" in spec:
         if d.dose_mg_day is None:
             return PredicateResult(None, missing_fields=["dose", "unit", "frequency"])
         ok = d.dose_mg_day > float(spec["dose_mg_day_gt"])
-        return PredicateResult(ok, matched_conditions=[f"dose_mg_day>{spec['dose_mg_day_gt']}"] if ok else [])
+        return PredicateResult(
+            ok, matched_conditions=[f"dose_mg_day>{spec['dose_mg_day_gt']}"] if ok else []
+        )
     if "indication_any" in spec:
         if not d.indication:
             return PredicateResult(False)
@@ -152,7 +158,9 @@ def _eval_concurrent(spec: dict[str, Any], ctx: EvalContext) -> PredicateResult:
     if "class_any" in spec:
         targets = set(spec["class_any"])
         hits = [m.ingredient for m in ctx.medications if targets & set(m.class_groups)]
-        return PredicateResult(bool(hits), matched_conditions=[f"concurrent_class:{h}" for h in hits])
+        return PredicateResult(
+            bool(hits), matched_conditions=[f"concurrent_class:{h}" for h in hits]
+        )
     if "ingredient_any" in spec:
         targets = {i.lower() for i in spec["ingredient_any"]}
         hits = [m.ingredient for m in ctx.medications if m.ingredient.lower() in targets]
@@ -178,6 +186,10 @@ def _eval_lab(spec: dict[str, Any], ctx: EvalContext) -> PredicateResult:
         ok = p.a1c_percent < p.individualized_a1c_target_percent
         return PredicateResult(
             ok,
-            matched_conditions=[f"a1c({p.a1c_percent})<target({p.individualized_a1c_target_percent})"] if ok else [],
+            matched_conditions=[
+                f"a1c({p.a1c_percent})<target({p.individualized_a1c_target_percent})"
+            ]
+            if ok
+            else [],
         )
     return PredicateResult(False)

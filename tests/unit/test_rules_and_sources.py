@@ -51,7 +51,9 @@ def test_no_numeric_taper_schedule_in_rules() -> None:
 
 
 def test_exports_contain_intended_use_and_attributions() -> None:
-    fixture = json.loads(Path("tests/fixtures/patient_polypharmacy.json").read_text(encoding="utf-8"))
+    fixture = json.loads(
+        Path("tests/fixtures/patient_polypharmacy.json").read_text(encoding="utf-8")
+    )
     patient = Patient(**fixture["patient"])
     meds = [MedicationInput(**m) for m in fixture["medications"]]
 

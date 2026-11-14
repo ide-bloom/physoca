@@ -34,17 +34,28 @@ def test_predicates_coverage() -> None:
         review_date=date(2026, 11, 13),
     )
     meds = normalize_medication(
-        MedicationInput(name="acetylsalicylic acid", dose=81, unit="mg", frequency="daily", indication="secondary prevention"),
+        MedicationInput(
+            name="acetylsalicylic acid",
+            dose=81,
+            unit="mg",
+            frequency="daily",
+            indication="secondary prevention",
+        ),
         p,
     )
-    ctx = EvalContext(patient=p, diagnoses=[], medications=meds, egfr=40.0, crcl=35.0, current_drug=meds[0])
+    ctx = EvalContext(
+        patient=p, diagnoses=[], medications=meds, egfr=40.0, crcl=35.0, current_drug=meds[0]
+    )
 
     assert evaluate_predicate({"patient": {"age_gte": 65}}, ctx).matched is True
     assert evaluate_predicate({"patient": {"cfs_gte": 6}}, ctx).matched is True
     assert evaluate_predicate({"patient": {"crcl_lt": 50}}, ctx).matched is True
     assert evaluate_predicate({"patient": {"setting_any": ["long_term_care"]}}, ctx).matched is True
     assert evaluate_predicate({"lab": {"a1c_lt_individual_target": True}}, ctx).matched is True
-    assert evaluate_predicate({"drug": {"indication_any": ["secondary prevention"]}}, ctx).matched is True
+    assert (
+        evaluate_predicate({"drug": {"indication_any": ["secondary prevention"]}}, ctx).matched
+        is True
+    )
     assert evaluate_predicate({"not": {"patient": {"age_gte": 90}}}, ctx).matched is True
 
 

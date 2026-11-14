@@ -27,7 +27,13 @@ def compute_egfr_ckd_epi_2021(
         sex_factor = 1.0
 
     ratio = scr_mg_dl / kappa
-    egfr = 142.0 * (min(ratio, 1.0) ** alpha) * (max(ratio, 1.0) ** -1.200) * (0.9938**age_years) * sex_factor
+    egfr = (
+        142.0
+        * (min(ratio, 1.0) ** alpha)
+        * (max(ratio, 1.0) ** -1.200)
+        * (0.9938**age_years)
+        * sex_factor
+    )
     return float(round(egfr, 1))
 
 
