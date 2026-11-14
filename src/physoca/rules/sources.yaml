@@ -1,0 +1,838 @@
+schema_version: 1
+registry_version: "2026.11.0"
+last_reviewed: "2026-11-13"
+sources:
+  # --- Canadian guidelines, criteria, and toolkits ---
+  - id: ca_pip_guideline_2026
+    kind: guideline
+    jurisdiction: CA
+    title: "Screening for potentially inappropriate prescribing in primary care: Canadian guideline"
+    body_or_authors: "McDonald et al."
+    year: 2026
+    venue: "Can Fam Physician 2026;72(3):173-178"
+    identifier: "doi:10.46747/cfp.7203173"
+    languages: [en, fr]
+    reuse_terms: "Open access"
+    role: context
+    used_by: [README, docs/limitations.md]
+    verified: true
+    last_checked: "2026-11-13"
+    watch: "Check for updates from CADeN and the Canadian Task Force on Preventive Health Care."
+
+  - id: deprescribing_org_ppi
+    kind: guideline
+    jurisdiction: CA
+    title: "Deprescribing proton pump inhibitors: evidence-based clinical practice guideline"
+    body_or_authors: "Farrell B, Pottie K, Thompson W, et al. (Bruyere Research Institute / OPEN)"
+    year: 2017
+    venue: "Can Fam Physician 2017;63:354-364"
+    identifier: "https://deprescribing.org"
+    languages: [en, fr]
+    reuse_terms: "Use freely with credit, non-commercial, do-not-modify algorithm notice"
+    role: rule_basis
+    used_by: [PHY-GI-001]
+    verified: true
+    last_checked: "2026-11-13"
+    watch: "Check deprescribing.org for guideline updates."
+
+  - id: deprescribing_org_bzra
+    kind: guideline
+    jurisdiction: CA
+    title: "Deprescribing benzodiazepine receptor agonists: evidence-based clinical practice guideline"
+    body_or_authors: "Pottie K, Thompson W, Davies S, et al."
+    year: 2018
+    venue: "Can Fam Physician 2018;64:339-351"
+    identifier: "https://deprescribing.org"
+    languages: [en, fr]
+    reuse_terms: "Use freely with credit, non-commercial, do-not-modify algorithm notice"
+    role: rule_basis
+    used_by: [PHY-CNS-001]
+    verified: true
+    last_checked: "2026-11-13"
+    watch: "Check deprescribing.org for updates."
+
+  - id: deprescribing_org_antipsychotic
+    kind: guideline
+    jurisdiction: CA
+    title: "Deprescribing antipsychotics for behavioural and psychological symptoms of dementia and insomnia"
+    body_or_authors: "Bjerre L, et al."
+    year: 2017
+    venue: "Can Fam Physician"
+    identifier: "https://deprescribing.org"
+    languages: [en, fr]
+    reuse_terms: "Use freely with credit, non-commercial, do-not-modify algorithm notice"
+    role: rule_basis
+    used_by: [PHY-NEURO-001]
+    verified: false
+    last_checked: "2026-11-13"
+    watch: "Verify journal year and page range."
+
+  - id: deprescribing_org_antihyperglycemic
+    kind: guideline
+    jurisdiction: CA
+    title: "Deprescribing antihyperglycemic agents in older persons"
+    body_or_authors: "Farrell B, Black C, Thompson W, et al."
+    year: 2017
+    venue: "Can Fam Physician 2017;63(11):832-843"
+    identifier: "https://deprescribing.org"
+    languages: [en, fr]
+    reuse_terms: "Use freely with credit, non-commercial, do-not-modify algorithm notice"
+    role: rule_basis
+    used_by: [PHY-ENDO-001]
+    verified: true
+    last_checked: "2026-11-13"
+    watch: "Check deprescribing.org for updates."
+
+  - id: deprescribing_org_cheis_memantine
+    kind: guideline
+    jurisdiction: CA
+    title: "Deprescribing cholinesterase inhibitors and memantine"
+    body_or_authors: "Deprescribing.org"
+    languages: [en, fr]
+    reuse_terms: "Use freely with credit, non-commercial, do-not-modify algorithm notice"
+    role: rule_basis
+    used_by: [PHY-NEURO-002]
+    verified: false
+    last_checked: "2026-11-13"
+    watch: "Verify publication citation."
+
+  - id: deprescribing_org_5tips
+    kind: toolkit
+    jurisdiction: CA
+    title: "5 Tips to Manage Polypharmacy and 5 Questions to Ask about My Multiple Medications"
+    body_or_authors: "Deprescribing.org, Canada's Drug Agency, ISMP Canada, Choosing Wisely Canada, CFPC"
+    languages: [en, fr]
+    reuse_terms: "Link only; do not reproduce"
+    role: patient_resource_link
+    used_by: [README]
+    verified: false
+    last_checked: "2026-11-13"
+    watch: "Check for updated toolkit links."
+
+  - id: ccsmh_bzra_2020
+    kind: guideline
+    jurisdiction: CA
+    title: "Canadian Guidelines on Benzodiazepine Receptor Agonist Use Disorder Among Older Adults"
+    body_or_authors: "Conn DK, Hogan DB, et al. (CCSMH)"
+    year: 2020
+    venue: "Can Geriatr J"
+    languages: [en, fr]
+    reuse_terms: "Citation only"
+    role: rule_basis
+    used_by: [PHY-CNS-001]
+    verified: false
+    last_checked: "2026-11-13"
+    watch: "Verify Can Geriatr J year and volume."
+
+  - id: ccsmh_delirium
+    kind: guideline
+    jurisdiction: CA
+    title: "The Assessment and Treatment of Delirium (including pocket card)"
+    body_or_authors: "Canadian Coalition for Seniors' Mental Health"
+    year: 2024
+    languages: [en, fr]
+    reuse_terms: "Citation only"
+    role: context
+    used_by: [PHY-CNS-001, PHY-ANTICH-001]
+    verified: false
+    last_checked: "2026-11-13"
+    watch: "Check CCSMH for pocket card updates."
+
+  - id: ccsmh_bpsd_2024
+    kind: guideline
+    jurisdiction: CA
+    title: "CCSMH 2024 guideline on assessing and managing behavioural and psychological symptoms of dementia"
+    body_or_authors: "Canadian Coalition for Seniors' Mental Health"
+    year: 2024
+    languages: [en, fr]
+    reuse_terms: "Citation only"
+    role: rule_basis
+    used_by: [PHY-NEURO-001]
+    verified: false
+    last_checked: "2026-11-13"
+    watch: "Verify exact title and publication details."
+
+  - id: ccsmh_other
+    kind: guideline
+    jurisdiction: CA
+    title: "CCSMH guidelines on depression (2021), alcohol use disorder (2019), and anxiety"
+    body_or_authors: "Canadian Coalition for Seniors' Mental Health"
+    languages: [en, fr]
+    reuse_terms: "Citation only"
+    role: context
+    used_by: []
+    verified: false
+    last_checked: "2026-11-13"
+    watch: "Verify anxiety guideline year."
+
+  - id: reppas_2023
+    kind: article
+    jurisdiction: CA
+    title: "Antipsychotic medications for older adults with delirium admitted to hospital"
+    body_or_authors: "Reppas-Rindlisbacher C, Wiesenfeld L, Stall NM"
+    year: 2023
+    venue: "CMAJ"
+    identifier: "doi:10.1503/cmaj.230227"
+    languages: [en, fr]
+    reuse_terms: "Citation only"
+    role: context
+    used_by: [PHY-NEURO-001]
+    verified: true
+    last_checked: "2026-11-13"
+    watch: "None."
+
+  - id: cdn_opioid_2017
+    kind: guideline
+    jurisdiction: CA
+    title: "Canadian Guideline for Opioid Therapy and Chronic Non-Cancer Pain"
+    body_or_authors: "Busse JW, et al. (Michael G. DeGroote National Pain Centre)"
+    year: 2017
+    venue: "CMAJ"
+    identifier: "doi:10.1503/cmaj.170363"
+    languages: [en, fr]
+    reuse_terms: "Citation only"
+    role: rule_basis
+    used_by: [PHY-CNS-003, PHY-CNS-004]
+    verified: true
+    last_checked: "2026-11-13"
+    watch: "Check whether a newer Canadian opioid guideline has been published."
+
+  - id: diabetes_canada_2018_ch37
+    kind: guideline
+    jurisdiction: CA
+    title: "Diabetes in older people (Chapter 37, Diabetes Canada Clinical Practice Guidelines)"
+    body_or_authors: "Meneilly GS, Knip A, Miller DB, Sherifali D, Tessier D, Zahedi A"
+    year: 2018
+    venue: "Can J Diabetes 2018;42(Suppl 1):S283-S295"
+    languages: [en, fr]
+    reuse_terms: "Citation only"
+    role: rule_basis
+    used_by: [PHY-ENDO-001]
+    verified: true
+    last_checked: "2026-11-13"
+    watch: "Check Diabetes Canada for chapter 37 updates."
+
+  - id: cmaj_2024_lega
+    kind: article
+    jurisdiction: CA
+    title: "Five things to know about deprescribing diabetes medications for older adults living with frailty"
+    body_or_authors: "Lega IC, Thompson W, McCarthy LM"
+    year: 2024
+    venue: "CMAJ 2024;196:E562"
+    identifier: "doi:10.1503/cmaj.231411"
+    languages: [en, fr]
+    reuse_terms: "Citation only"
+    role: rule_basis
+    used_by: [PHY-ENDO-001]
+    verified: true
+    last_checked: "2026-11-13"
+    watch: "None."
+
+  - id: cwc_cgs_recs
+    kind: criteria
+    jurisdiction: CA
+    title: "Choosing Wisely Canada: Canadian Geriatrics Society recommendations"
+    body_or_authors: "Choosing Wisely Canada / CGS"
+    languages: [en, fr]
+    reuse_terms: "Citation only"
+    role: rule_basis
+    used_by: [PHY-CNS-001, PHY-ANTICH-001]
+    verified: false
+    last_checked: "2026-11-13"
+    watch: "Check Choosing Wisely Canada for updates."
+
+  - id: cwc_cpha_recs
+    kind: criteria
+    jurisdiction: CA
+    title: "Choosing Wisely Canada: Canadian Pharmacists Association recommendations"
+    body_or_authors: "Choosing Wisely Canada / CPhA"
+    year: 2025
+    languages: [en, fr]
+    reuse_terms: "Citation only"
+    role: rule_basis
+    used_by: [PHY-CNS-001, PHY-GI-001]
+    verified: false
+    last_checked: "2026-11-13"
+    watch: "Check Choosing Wisely Canada for updates."
+
+  - id: cwc_csltcm_recs
+    kind: criteria
+    jurisdiction: CA
+    title: "Choosing Wisely Canada: Canadian Society for Long Term Care Medicine recommendations"
+    body_or_authors: "Choosing Wisely Canada / CSLTCM"
+    languages: [en, fr]
+    reuse_terms: "Citation only"
+    role: rule_basis
+    used_by: [PHY-ENDO-001, PHY-ENDO-002]
+    verified: false
+    last_checked: "2026-11-13"
+    watch: "Check Choosing Wisely Canada for updates."
+
+  - id: cwc_hospital_medicine_recs
+    kind: criteria
+    jurisdiction: CA
+    title: "Choosing Wisely Canada: Canadian Society for Hospital Medicine recommendations"
+    body_or_authors: "Choosing Wisely Canada / CSHM"
+    languages: [en, fr]
+    reuse_terms: "Citation only"
+    role: rule_basis
+    used_by: [PHY-CNS-001]
+    verified: false
+    last_checked: "2026-11-13"
+    watch: "Check Choosing Wisely Canada for updates."
+
+  - id: cwc_toolkit_drowsy
+    kind: toolkit
+    jurisdiction: CA
+    title: "Drowsy Without Feeling Lousy: toolkit for primary care, v1.2"
+    body_or_authors: "Choosing Wisely Canada"
+    year: 2023
+    languages: [en, fr]
+    reuse_terms: "Citation and link only"
+    role: rule_basis
+    used_by: [PHY-CNS-001]
+    verified: false
+    last_checked: "2026-11-13"
+    watch: "Check for newer toolkit version."
+
+  - id: cwc_toolkit_sedatives_hospital
+    kind: toolkit
+    jurisdiction: CA
+    title: "Less Sedatives for Your Relatives: toolkit for hospitals"
+    body_or_authors: "Choosing Wisely Canada"
+    year: 2024
+    languages: [en, fr]
+    reuse_terms: "Citation and link only"
+    role: context
+    used_by: [PHY-CNS-001]
+    verified: false
+    last_checked: "2026-11-13"
+    watch: "Check for newer toolkit version."
+
+  - id: cwc_toolkit_ppi
+    kind: toolkit
+    jurisdiction: CA
+    title: "Ask Why for PPIs: toolkit on optimizing proton pump inhibitor use"
+    body_or_authors: "Choosing Wisely Canada"
+    languages: [en, fr]
+    reuse_terms: "Citation and link only"
+    role: rule_basis
+    used_by: [PHY-GI-001]
+    verified: false
+    last_checked: "2026-11-13"
+    watch: "Check for newer toolkit version."
+
+  - id: cwc_toolkit_antipsychotic_ltc
+    kind: toolkit
+    jurisdiction: CA
+    title: "When Psychosis Isn't the Diagnosis: toolkit for long-term care"
+    body_or_authors: "Choosing Wisely Canada"
+    languages: [en, fr]
+    reuse_terms: "Citation and link only"
+    role: rule_basis
+    used_by: [PHY-NEURO-001]
+    verified: false
+    last_checked: "2026-11-13"
+    watch: "Check for newer toolkit version."
+
+  - id: cwc_insomnia_anxiety
+    kind: toolkit
+    jurisdiction: CA
+    title: "Insomnia and Anxiety in Older People"
+    body_or_authors: "Choosing Wisely Canada"
+    languages: [en, fr]
+    reuse_terms: "Link only; for clinician to share"
+    role: patient_resource_link
+    used_by: [PHY-CNS-001]
+    verified: false
+    last_checked: "2026-11-13"
+    watch: "Check URL."
+
+  - id: rxfiles
+    kind: toolkit
+    jurisdiction: CA
+    title: "RxFiles academic detailing program (Geri-RxFiles and PPI deprescribing newsletter)"
+    body_or_authors: "RxFiles"
+    year: 2017
+    identifier: "https://www.rxfiles.ca"
+    languages: [en]
+    reuse_terms: "Citation only"
+    role: rule_basis
+    used_by: [PHY-GI-001]
+    verified: false
+    last_checked: "2026-11-13"
+    watch: "Check rxfiles.ca for updates."
+
+  - id: caden
+    kind: toolkit
+    jurisdiction: CA
+    title: "Canadian Medication Appropriateness and Deprescribing Network (EMPOWER brochures and resources)"
+    body_or_authors: "CADeN"
+    identifier: "https://www.deprescribingnetwork.ca"
+    languages: [en, fr]
+    reuse_terms: "Link only; for clinician to share"
+    role: patient_resource_link
+    used_by: [README]
+    verified: true
+    last_checked: "2026-11-13"
+    watch: "Check deprescribingnetwork.ca for new brochures."
+
+  - id: caden_curriculum
+    kind: article
+    jurisdiction: CA
+    title: "Deprescribing curriculum framework and Deprescribing Resources Toolkit"
+    body_or_authors: "Schuster B, Faisal S, Gagnon C, et al."
+    year: 2024
+    venue: "Can Pharm J"
+    identifier: "doi:10.1177/17151635241239924"
+    languages: [en]
+    reuse_terms: "Citation only"
+    role: context
+    used_by: []
+    verified: true
+    last_checked: "2026-11-13"
+    watch: "None."
+
+  - id: casc_toolbox_2024
+    kind: toolkit
+    jurisdiction: CA
+    title: "CASCADES Medication Optimization Resource Toolbox"
+    body_or_authors: "CASCADES"
+    year: 2024
+    languages: [en, fr]
+    reuse_terms: "Citation only"
+    role: context
+    used_by: []
+    verified: false
+    last_checked: "2026-11-13"
+    watch: "Check CASCADES for updates."
+
+  - id: savage_2020
+    kind: article
+    jurisdiction: CA
+    title: "Evaluation of a common prescribing cascade of calcium channel blockers and diuretics in older adults with hypertension"
+    body_or_authors: "Savage RD, et al."
+    year: 2020
+    venue: "JAMA Intern Med 2020;180(5):643-651"
+    languages: [en]
+    reuse_terms: "Citation only"
+    role: rule_basis
+    used_by: [PHY-CASC-001]
+    verified: true
+    last_checked: "2026-11-13"
+    watch: "None."
+
+  - id: sternberg_2021
+    kind: article
+    jurisdiction: CA
+    title: "Prescribing cascades in older adults"
+    body_or_authors: "Sternberg SA, et al."
+    year: 2021
+    venue: "CMAJ 2021;193(6):E215"
+    languages: [en, fr]
+    reuse_terms: "Citation only"
+    role: rule_basis
+    used_by: [PHY-CASC-001]
+    verified: true
+    last_checked: "2026-11-13"
+    watch: "None."
+
+  - id: trenaman_2022
+    kind: article
+    jurisdiction: CA
+    title: "A prescribing cascade of proton pump inhibitors following anticholinergic medications in older adults with dementia"
+    body_or_authors: "Trenaman SC, et al."
+    year: 2022
+    venue: "Front Pharmacol 2022;13:878092"
+    languages: [en]
+    reuse_terms: "Citation only"
+    role: rule_basis
+    used_by: [PHY-CASC-001, PHY-ANTICH-002]
+    verified: true
+    last_checked: "2026-11-13"
+    watch: "None."
+
+  # --- Canadian policy, surveillance, and data ---
+  - id: hc_appropriate_use_2025
+    kind: report
+    jurisdiction: CA
+    title: "A Prescription for Action: A Pan-Canadian Strategy for Advancing the Appropriate Use of Prescription Medications"
+    body_or_authors: "Health Canada"
+    year: 2025
+    languages: [en, fr]
+    reuse_terms: "Open Government Licence - Canada"
+    role: context
+    used_by: [README]
+    verified: true
+    last_checked: "2026-11-13"
+    watch: "None."
+
+  - id: cdato_report_2024
+    kind: report
+    jurisdiction: CA
+    title: "A Path to Improving Medication Appropriateness in Canada: final report of the Appropriate Use Advisory Committee"
+    body_or_authors: "Canadian Drug Agency Transition Office"
+    year: 2024
+    languages: [en, fr]
+    reuse_terms: "Public report"
+    role: context
+    used_by: [README]
+    verified: true
+    last_checked: "2026-11-13"
+    watch: "None."
+
+  - id: cda_amc_au_summaries
+    kind: report
+    jurisdiction: CA
+    title: "Appropriate Use Intervention Summaries"
+    body_or_authors: "Canada's Drug Agency (CDA-AMC)"
+    languages: [en, fr]
+    reuse_terms: "Public report"
+    role: context
+    used_by: []
+    verified: false
+    last_checked: "2026-11-13"
+    watch: "Check CDA-AMC appropriate use page."
+
+  - id: cihi_seniors_2016
+    kind: report
+    jurisdiction: CA
+    title: "Drug Use Among Seniors in Canada, 2016"
+    body_or_authors: "Canadian Institute for Health Information (CIHI)"
+    year: 2018
+    languages: [en, fr]
+    reuse_terms: "Citation only"
+    role: context
+    used_by: [README]
+    verified: true
+    last_checked: "2026-11-13"
+    watch: "None."
+
+  - id: cihi_seniors_update
+    kind: report
+    jurisdiction: CA
+    title: "Drug Use Among Seniors in Canada (later releases)"
+    body_or_authors: "Canadian Institute for Health Information (CIHI)"
+    languages: [en, fr]
+    reuse_terms: "Citation only"
+    role: context
+    used_by: []
+    verified: false
+    last_checked: "2026-11-13"
+    watch: "Confirm figures against CIHI before quoting."
+
+  - id: hc_dpd
+    kind: data
+    jurisdiction: CA
+    title: "Health Canada Drug Product Database (DPD) extract and API"
+    body_or_authors: "Health Canada"
+    year: 2026
+    languages: [en, fr]
+    reuse_terms: "Open Government Licence - Canada 2.0"
+    role: data_source
+    used_by: [scripts/fetch_dpd.py]
+    verified: true
+    last_checked: "2026-11-13"
+    watch: "Refresh monthly; warn if extract older than 35 days."
+
+  - id: ccdd
+    kind: data
+    jurisdiction: CA
+    title: "Canadian Clinical Drug Data Set (CCDD)"
+    body_or_authors: "Canada Health Infoway / Health Canada"
+    languages: [en, fr]
+    reuse_terms: "Open Government Licence - Canada"
+    role: data_source
+    used_by: []
+    verified: false
+    last_checked: "2026-11-13"
+    watch: "Monthly release."
+
+  - id: hc_lnhpd
+    kind: data
+    jurisdiction: CA
+    title: "Health Canada Licensed Natural Health Products Database (LNHPD)"
+    body_or_authors: "Health Canada"
+    languages: [en, fr]
+    reuse_terms: "Open Government Licence - Canada"
+    role: data_source
+    used_by: []
+    verified: false
+    last_checked: "2026-11-13"
+    watch: "Optional supplement mapping."
+
+  - id: hc_canada_vigilance
+    kind: data
+    jurisdiction: CA
+    title: "Canada Vigilance Adverse Reaction Online Database"
+    body_or_authors: "Health Canada"
+    languages: [en, fr]
+    reuse_terms: "Open Government Licence - Canada"
+    role: context
+    used_by: []
+    verified: false
+    last_checked: "2026-11-13"
+    watch: "Context only; never used to score a patient."
+
+  - id: hc_samd_guidance
+    kind: legal
+    jurisdiction: CA
+    title: "Software as a Medical Device: Definition and Classification (2019), Classification Examples (2022), and ML-Enabled Medical Devices Guidance (2025)"
+    body_or_authors: "Health Canada"
+    year: 2025
+    languages: [en, fr]
+    reuse_terms: "Open Government Licence - Canada"
+    role: legal
+    used_by: [docs/regulatory.md]
+    verified: true
+    last_checked: "2026-11-13"
+    watch: "Monitor Health Canada SaMD updates."
+
+  # --- Canadian privacy and legal references ---
+  - id: phipa_on
+    kind: legal
+    jurisdiction: ON
+    title: "Personal Health Information Protection Act, 2004 (PHIPA)"
+    body_or_authors: "Government of Ontario"
+    identifier: "https://www.ontario.ca/laws/statute/04p03"
+    languages: [en, fr]
+    reuse_terms: "Public statute"
+    role: legal
+    used_by: [docs/privacy.md]
+    verified: false
+    last_checked: "2026-11-13"
+    watch: "Verify IPC Ontario guidance."
+
+  - id: pipeda
+    kind: legal
+    jurisdiction: CA
+    title: "Personal Information Protection and Electronic Documents Act (PIPEDA)"
+    body_or_authors: "Government of Canada"
+    identifier: "https://laws-lois.justice.gc.ca/eng/acts/p-8.6/"
+    languages: [en, fr]
+    reuse_terms: "Public statute"
+    role: legal
+    used_by: [docs/privacy.md]
+    verified: false
+    last_checked: "2026-11-13"
+    watch: "Monitor federal privacy reform."
+
+  - id: qc_law25
+    kind: legal
+    jurisdiction: QC
+    title: "Quebec Law 25 (Act to modernize legislative provisions as regards the protection of personal information)"
+    body_or_authors: "Gouvernement du Québec"
+    identifier: "https://www.cai.gouv.qc.ca"
+    languages: [fr, en]
+    reuse_terms: "Public statute"
+    role: legal
+    used_by: [docs/privacy.md]
+    verified: false
+    last_checked: "2026-11-13"
+    watch: "Verify CAI guidance."
+
+  - id: qc_law5
+    kind: legal
+    jurisdiction: QC
+    title: "Quebec Act respecting health and social services information (Law 5)"
+    body_or_authors: "Gouvernement du Québec"
+    year: 2024
+    identifier: "https://www.quebec.ca"
+    languages: [fr, en]
+    reuse_terms: "Public statute"
+    role: legal
+    used_by: [docs/privacy.md]
+    verified: false
+    last_checked: "2026-11-13"
+    watch: "Verify implementation regulations."
+
+  - id: bc_ab_pipa
+    kind: legal
+    jurisdiction: CA
+    title: "British Columbia and Alberta Personal Information Protection Acts (PIPA)"
+    body_or_authors: "Governments of BC and Alberta"
+    languages: [en]
+    reuse_terms: "Public statutes"
+    role: legal
+    used_by: [docs/privacy.md]
+    verified: false
+    last_checked: "2026-11-13"
+    watch: "Deployers must confirm provincial health information statutes."
+
+  - id: fdr_medical_devices
+    kind: legal
+    jurisdiction: CA
+    title: "Food and Drugs Act and Medical Devices Regulations"
+    body_or_authors: "Government of Canada"
+    identifier: "https://laws-lois.justice.gc.ca/eng/regulations/sor-98-282/"
+    languages: [en, fr]
+    reuse_terms: "Public statute"
+    role: legal
+    used_by: [docs/regulatory.md]
+    verified: false
+    last_checked: "2026-11-13"
+    watch: "None."
+
+  # --- International corroboration ---
+  - id: ags_beers_2023
+    kind: criteria
+    jurisdiction: US
+    title: "American Geriatrics Society 2023 updated AGS Beers Criteria for potentially inappropriate medication use in older adults"
+    body_or_authors: "American Geriatrics Society"
+    year: 2023
+    venue: "J Am Geriatr Soc 2023;71(7):2052-2081"
+    languages: [en]
+    reuse_terms: "Citation only"
+    role: rule_basis
+    used_by: [PHY-GI-001, PHY-CNS-001, PHY-ANTICH-001, PHY-ANTICH-002, PHY-ENDO-001, PHY-CV-001, PHY-MSK-001, PHY-NEURO-001, PHY-CV-002, PHY-CNS-002, PHY-CNS-003]
+    verified: true
+    last_checked: "2026-11-13"
+    watch: "Next AGS Beers edition anticipated in 2026 or 2027; do not treat third-party '2026 Beers' pages as a new edition."
+
+  - id: ags_beers_alt_2025
+    kind: criteria
+    jurisdiction: US
+    title: "AGS Alternative Treatments to Selected Medications in the 2023 Beers Criteria (2025 update)"
+    body_or_authors: "American Geriatrics Society"
+    year: 2025
+    languages: [en]
+    reuse_terms: "Citation only; not a prioritized list"
+    role: rule_basis
+    used_by: [PHY-ANTICH-001, PHY-MSK-001]
+    verified: true
+    last_checked: "2026-11-13"
+    watch: "Check AGS for updates."
+
+  - id: stopp_start_v3
+    kind: criteria
+    jurisdiction: EU
+    title: "STOPP/START criteria for potentially inappropriate prescribing in older people: version 3"
+    body_or_authors: "O'Mahony D, Cherubini A, Guiteras AR, et al."
+    year: 2023
+    venue: "Eur Geriatr Med 2023;14(4):625-632"
+    languages: [en]
+    reuse_terms: "Citation only"
+    role: rule_basis
+    used_by: [PHY-GI-001, PHY-CNS-001, PHY-ENDO-001, PHY-START-001, PHY-START-002, PHY-START-003, PHY-START-004]
+    verified: true
+    last_checked: "2026-11-13"
+    watch: "Surface evidence caution where flagged by Boland et al. 2025."
+
+  - id: boland_2025_appraisal
+    kind: article
+    jurisdiction: EU
+    title: "Appraisal of evidence supporting STOPP/START version 3 criteria"
+    body_or_authors: "Boland B, et al."
+    year: 2025
+    venue: "Eur Geriatr Med"
+    identifier: "doi:10.1007/s41999-025-01386-7"
+    languages: [en]
+    reuse_terms: "Citation only"
+    role: context
+    used_by: [README]
+    verified: true
+    last_checked: "2026-11-13"
+    watch: "None."
+
+  - id: au_deprescribing_2026
+    kind: guideline
+    jurisdiction: AU
+    title: "Deprescribing in Older People: clinical practice guideline summary"
+    body_or_authors: "Quek HW, et al."
+    year: 2026
+    venue: "Med J Aust 2026;224(4)"
+    identifier: "doi:10.5694/mja2.70174"
+    languages: [en]
+    reuse_terms: "Citation only; corroborating source"
+    role: context
+    used_by: []
+    verified: true
+    last_checked: "2026-11-13"
+    watch: "Corroborating source only."
+
+  - id: bzd_taper_joint_2025
+    kind: guideline
+    jurisdiction: US
+    title: "Joint Clinical Practice Guideline on Benzodiazepine Tapering"
+    body_or_authors: "ASAM / multi-society"
+    year: 2025
+    languages: [en]
+    reuse_terms: "Citation only"
+    role: rule_basis
+    used_by: [PHY-CNS-001]
+    verified: false
+    last_checked: "2026-11-13"
+    watch: "Verify locator and wording."
+
+  - id: anticholinergic_scales
+    kind: scale
+    jurisdiction: INT
+    title: "Anticholinergic burden scales (ACB 2012; CRIDECO CALS 2022; Danish updated scale 2024; 2026 systematic review)"
+    body_or_authors: "Boustani et al.; CRIDECO; Danish scale; J Am Geriatr Soc 2026;74(6):1771-1784"
+    year: 2026
+    venue: "J Pers Med 2022;12(2):207; Pharmacy 2024;12(6):160; J Am Geriatr Soc 2026;74(6):1771-1784"
+    languages: [en]
+    reuse_terms: "Citation only"
+    role: scoring_data
+    used_by: [PHY-ANTICH-002]
+    verified: true
+    last_checked: "2026-11-13"
+    watch: "Check for new consensus scales."
+
+  - id: cdc_steadi
+    kind: toolkit
+    jurisdiction: US
+    title: "CDC STEADI Medications Linked to Falls"
+    body_or_authors: "Centers for Disease Control and Prevention"
+    languages: [en]
+    reuse_terms: "Public domain"
+    role: scoring_data
+    used_by: [steadi_fall_risk]
+    verified: false
+    last_checked: "2026-11-13"
+    watch: "Check CDC STEADI updates."
+
+  - id: quek_2024_bjcp
+    kind: article
+    jurisdiction: AU
+    title: "Effect of deprescribing interventions on mortality and health outcomes in older people: an updated systematic review and meta-analysis"
+    body_or_authors: "Quek HW, et al."
+    year: 2024
+    venue: "Br J Clin Pharmacol 2024;90(10):2409-2482"
+    languages: [en]
+    reuse_terms: "Citation only"
+    role: context
+    used_by: []
+    verified: true
+    last_checked: "2026-11-13"
+    watch: "None."
+
+  - id: munshi_2025
+    kind: article
+    jurisdiction: INT
+    title: "Realigning diabetes regimens in older adults: a 4S pathway to guide simplification and deprescribing"
+    body_or_authors: "Munshi M, et al."
+    year: 2025
+    venue: "Lancet Diabetes Endocrinol 2025;13(5):427-437"
+    languages: [en]
+    reuse_terms: "Citation only"
+    role: context
+    used_by: []
+    verified: true
+    last_checked: "2026-11-13"
+    watch: "None."
+
+  - id: ada_2025_older_adults
+    kind: guideline
+    jurisdiction: US
+    title: "Standards of Care in Diabetes 2025, Section 13: Older Adults"
+    body_or_authors: "American Diabetes Association"
+    year: 2025
+    venue: "Diabetes Care 2025;48(Suppl 1):S266-S282"
+    languages: [en]
+    reuse_terms: "Citation only"
+    role: context
+    used_by: []
+    verified: true
+    last_checked: "2026-11-13"
+    watch: "Annual ADA Standards update."

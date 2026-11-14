@@ -1,0 +1,57 @@
+{
+  "patient": {
+    "age_years": 81,
+    "sex": "female",
+    "weight_kg": 62.0,
+    "serum_creatinine_umol_l": 115.0,
+    "a1c_percent": 6.4,
+    "individualized_a1c_target_percent": 7.5,
+    "clinical_frailty_scale": 6,
+    "care_setting": "community",
+    "history_flags": ["falls"],
+    "diagnoses": ["F03", "I10"],
+    "review_date": "2026-11-13"
+  },
+  "medications": [
+    {
+      "name": "Pantoloc 40mg",
+      "dose": 40,
+      "unit": "mg",
+      "frequency": "daily",
+      "route": "oral",
+      "start_date": "2026-01-15"
+    },
+    {
+      "name": "Ativan 1mg",
+      "dose": 1,
+      "unit": "mg",
+      "frequency": "qhs",
+      "route": "oral",
+      "start_date": "2026-03-01"
+    },
+    {
+      "name": "Tramacet",
+      "dose": 37.5,
+      "unit": "mg",
+      "frequency": "tid",
+      "route": "oral",
+      "start_date": "2026-05-10"
+    },
+    {
+      "name": "Glyburide",
+      "dose": 5,
+      "unit": "mg",
+      "frequency": "bid",
+      "route": "oral",
+      "start_date": "2025-11-01"
+    },
+    {
+      "name": "Amitriptyline",
+      "dose": 25,
+      "unit": "mg",
+      "frequency": "qhs",
+      "route": "oral",
+      "start_date": "2025-09-01"
+    }
+  ]
+}

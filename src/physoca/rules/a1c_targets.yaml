@@ -1,0 +1,25 @@
+# Diabetes Canada Chapter 37 (2018) frailty-stratified A1C targets.
+# Every value is marked verified: false until checked against the primary chapter.
+schema_version: 1
+source_id: diabetes_canada_2018_ch37
+targets:
+  - cfs_min: 1
+    cfs_max: 3
+    low_hypoglycemia_risk_a1c_max: 7.0
+    insulin_or_sulfonylurea_a1c_range: [7.1, 7.5]
+    verified: false
+  - cfs_min: 4
+    cfs_max: 5
+    low_hypoglycemia_risk_a1c_max: 7.5
+    insulin_or_sulfonylurea_a1c_range: [7.1, 8.0]
+    verified: false
+  - cfs_min: 6
+    cfs_max: 8
+    low_hypoglycemia_risk_a1c_max: 8.0
+    insulin_or_sulfonylurea_a1c_range: [7.5, 8.5]
+    verified: false
+  - cfs_min: 9
+    cfs_max: 9
+    low_hypoglycemia_risk_a1c_max: 8.5
+    insulin_or_sulfonylurea_a1c_range: [8.0, 8.5]
+    verified: false

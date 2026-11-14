@@ -1,0 +1,218 @@
+schema_version: 1
+pack: physoca-extended
+pack_version: "2026.11.0-draft"
+rules:
+  - id: PHY-DUP-001
+    version: 1
+    status: draft
+    title: Therapeutic duplication within the same ingredient or ATC level 4 class
+    category: duplication
+    severity: review
+    population: {age_min: 18}
+    set_rule: {duplication: true}
+    rationale: Taking two products with the same active ingredient or within the same therapeutic class increases adverse effects without added benefit.
+    action: Confirm whether both products are intentional or whether one can be discontinued.
+    taper: {needed: false, abrupt_stop_risk: low, note: Check individual drug rules before stopping.}
+    evidence: {quality: moderate, strength: strong, rating_verified: false, caution: false}
+    sources:
+      - {id: ags_beers_2023, locator: "general principles, therapeutic duplication", verified: false}
+    i18n:
+      fr:
+        title: Duplication thérapeutique pour le même ingrédient ou la même classe ATC niveau 4
+        rationale: La prise de deux produits contenant le même ingrédient actif ou appartenant à la même classe augmente les effets indésirables sans bénéfice supplémentaire.
+        action: Confirmer si les deux produits sont intentionnels ou si l'un d'eux peut être cessé.
+
+  - id: PHY-CASC-001
+    version: 1
+    status: draft
+    title: Potential prescribing cascade detected
+    category: prescribing_cascade
+    severity: consider
+    population: {age_min: 65}
+    set_rule: {cascade_lookup: true}
+    rationale: A second medication may have been started to treat an adverse effect of an earlier medication rather than a new condition.
+    action: Review the timeline and indication of both medications to determine whether addressing the index drug resolves the symptom.
+    taper: {needed: false, abrupt_stop_risk: low, note: Review both drugs with the prescriber before making changes.}
+    evidence: {quality: moderate, strength: conditional, rating_verified: false, caution: false}
+    sources:
+      - {id: savage_2020, locator: "CCB to loop diuretic cascade", verified: true}
+      - {id: sternberg_2021, locator: "prescribing cascades in older adults", verified: true}
+      - {id: trenaman_2022, locator: "anticholinergic to PPI cascade", verified: true}
+    i18n:
+      fr:
+        title: Cascade médicamenteuse potentielle détectée
+        rationale: Un deuxième médicament a peut-être été amorcé pour traiter un effet indésirable d'un médicament antérieur plutôt qu'une nouvelle affection.
+        action: Réviser la chronologie et l'indication des deux médicaments afin de déterminer si l'ajustement du médicament initial résout le symptôme.
+
+  - id: PHY-NEURO-002
+    version: 1
+    status: draft
+    title: Cholinesterase inhibitor or memantine indication review
+    category: neuropsychiatric
+    severity: consider
+    population: {age_min: 65}
+    target: {atc_prefix: [N06DA, N06DX01]}
+    when:
+      all:
+        - {drug: {duration_days_gt: 365, basis: implementation_default}}
+    rationale: Long-term benefit of cholinesterase inhibitors or memantine should be reassessed periodically, especially if cognition or function continues to decline.
+    action: Review cognitive and functional response with the patient or caregiver and consider whether ongoing therapy remains beneficial.
+    taper: {needed: true, abrupt_stop_risk: moderate, note: A gradual taper planned by the prescriber is usually needed; Physoca does not provide a schedule.}
+    evidence: {quality: moderate, strength: conditional, rating_verified: false, caution: false}
+    sources:
+      - {id: deprescribing_org_cheis_memantine, locator: "guideline and algorithm", verified: false}
+    i18n:
+      fr:
+        title: Réévaluation de l'indication d'un inhibiteur de la cholinestérase ou de la mémantine
+        rationale: Le bénéfice à long terme des inhibiteurs de la cholinestérase ou de la mémantine doit être réévalué périodiquement, surtout si le déclin se poursuit.
+        action: Réviser la réponse cognitive et fonctionnelle avec le patient ou le proche aidant et évaluer si le traitement demeure bénéfique.
+
+  - id: PHY-CNS-004
+    version: 1
+    status: draft
+    title: Opioid daily dose at or above 90 mg morphine equivalents
+    category: central_nervous_system
+    severity: review
+    population: {age_min: 18}
+    target: {class_group: opioid}
+    when:
+      all:
+        - {drug: {dose_mg_day_gt: 0}}
+    exempt_if:
+      any:
+        - {patient: {flag_any: [palliative_care]}}
+        - {patient: {dx_any: [C00, C80, F11.2]}}
+    rationale: Higher daily opioid doses are associated with increased overdose and adverse-event risk without proportional pain relief in chronic non-cancer pain.
+    action: Review pain control and function, and consider a trial taper toward the lowest effective dose with the prescriber.
+    taper: {needed: true, abrupt_stop_risk: high, note: A gradual taper planned by the prescriber is usually needed; Physoca does not provide a schedule.}
+    evidence: {quality: moderate, strength: strong, rating_verified: false, caution: false}
+    sources:
+      - {id: cdn_opioid_2017, locator: "recommendation 9, 90 mg morphine equivalents", verified: false}
+    i18n:
+      fr:
+        title: Dose quotidienne d'opioïde égale ou supérieure à 90 mg d'équivalents morphine
+        rationale: Les doses quotidiennes plus élevées d'opioïdes sont associées à un risque accru de surdose et d'effets indésirables sans soulagement proportionnel dans la douleur chronique non cancéreuse.
+        action: Réviser le soulagement de la douleur et la fonction, et envisager un essai de diminution graduelle avec le prescripteur.
+
+  - id: PHY-ENDO-002
+    version: 1
+    status: draft
+    title: Sliding-scale insulin in long-term care
+    category: endocrine
+    severity: review
+    population: {age_min: 65}
+    target: {ingredient_any: [insulin lispro, insulin aspart, insulin regular]}
+    when:
+      all:
+        - {patient: {setting_any: [long_term_care]}}
+    rationale: Sliding-scale insulin alone in long-term care increases hypoglycemia risk and glycemic variability without improving outcomes.
+    action: Review whether a simpler scheduled or basal regimen is more appropriate for this resident.
+    taper: {needed: false, abrupt_stop_risk: moderate, note: Adjust diabetes regimen only with prescriber oversight and glucose monitoring.}
+    evidence: {quality: moderate, strength: strong, rating_verified: false, caution: false}
+    sources:
+      - {id: cwc_csltcm_recs, locator: "avoid sliding-scale insulin in long-term care", verified: false}
+    i18n:
+      fr:
+        title: Insuline selon une échelle mobile en soins de longue durée
+        rationale: L'insuline selon une échelle mobile seule en soins de longue durée augmente le risque d'hypoglycémie et la variabilité glycémique sans améliorer les résultats.
+        action: Évaluer si un schéma basal ou régulier plus simple convient mieux à ce résident.
+
+  # --- START-style omissions (separate section, never merged with deprescribing flags) ---
+  - id: PHY-START-001
+    version: 1
+    status: draft
+    kind: omission
+    title: Possible under-treatment — statin in established cardiovascular disease
+    category: cardiovascular_omission
+    severity: consider
+    population: {age_min: 65}
+    when:
+      all:
+        - {patient: {dx_any: [I20, I21, I25, I63]}}
+        - {not: {concurrent: {atc_prefix: [C10AA]}}}
+    exempt_if:
+      any:
+        - {patient: {flag_any: [life_expectancy_limited, palliative_care]}}
+    rationale: Statin therapy reduces recurrent cardiovascular events in established atherosclerotic disease unless life expectancy is limited.
+    action: Confirm whether a statin was previously trialled, not tolerated, or intentionally omitted.
+    taper: {needed: false, abrupt_stop_risk: low, note: Not applicable.}
+    evidence: {quality: moderate, strength: strong, rating_verified: false, caution: false}
+    sources:
+      - {id: stopp_start_v3, locator: "START A5, statin therapy", verified: false}
+    i18n:
+      fr:
+        title: Sous-traitement possible — statine en maladie cardiovasculaire établie
+        rationale: Les statines réduisent les événements cardiovasculaires récurrents en maladie athéroscléreuse établie, sauf si l'espérance de vie est limitée.
+        action: Confirmer si une statine a déjà été tentée, mal tolérée ou volontairement omise.
+
+  - id: PHY-START-002
+    version: 1
+    status: draft
+    kind: omission
+    title: Possible under-treatment — ACE inhibitor or ARB in heart failure
+    category: cardiovascular_omission
+    severity: consider
+    population: {age_min: 65}
+    when:
+      all:
+        - {patient: {dx_any: [I50]}}
+        - {not: {concurrent: {atc_prefix: [C09A, C09C]}}}
+    rationale: ACE inhibitors or ARBs improve survival and reduce hospitalizations in heart failure with reduced ejection fraction.
+    action: Confirm ejection fraction and whether an ACE inhibitor, ARB, or ARNI is indicated or contraindicated.
+    taper: {needed: false, abrupt_stop_risk: low, note: Not applicable.}
+    evidence: {quality: moderate, strength: strong, rating_verified: false, caution: true, note: "2025 appraisal flagged selected STOPP/START v3 cardiovascular references."}
+    sources:
+      - {id: stopp_start_v3, locator: "START A6, ACE inhibitor in heart failure", verified: false}
+    i18n:
+      fr:
+        title: Sous-traitement possible — IECA ou ARA en insuffisance cardiaque
+        rationale: Les IECA ou ARA améliorent la survie et réduisent les hospitalisations dans l'insuffisance cardiaque à fraction d'éjection réduite.
+        action: Confirmer la fraction d'éjection et vérifier si un IECA, un ARA ou un ARNI est indiqué ou contre-indiqué.
+
+  - id: PHY-START-003
+    version: 1
+    status: draft
+    kind: omission
+    title: Possible under-treatment — calcium and vitamin D with osteoporosis
+    category: musculoskeletal_omission
+    severity: consider
+    population: {age_min: 65}
+    when:
+      all:
+        - {patient: {dx_any: [M80, M81]}}
+        - {not: {concurrent: {ingredient_any: [vitamin d]}}}
+    rationale: Adequate calcium and vitamin D intake supports bone health and osteoporosis pharmacotherapy.
+    action: Confirm dietary intake and whether supplementation is already taken over the counter.
+    taper: {needed: false, abrupt_stop_risk: low, note: Not applicable.}
+    evidence: {quality: moderate, strength: strong, rating_verified: false, caution: false}
+    sources:
+      - {id: stopp_start_v3, locator: "START E3, vitamin D and calcium in osteoporosis", verified: false}
+    i18n:
+      fr:
+        title: Sous-traitement possible — calcium et vitamine D en ostéoporose
+        rationale: Un apport adéquat en calcium et en vitamine D soutient la santé osseuse et le traitement de l'ostéoporose.
+        action: Confirmer l'apport alimentaire et vérifier si des suppléments sont déjà pris en vente libre.
+
+  - id: PHY-START-004
+    version: 1
+    status: draft
+    kind: omission
+    title: Possible under-treatment — anticoagulation consideration in atrial fibrillation
+    category: cardiovascular_omission
+    severity: consider
+    population: {age_min: 65}
+    when:
+      all:
+        - {patient: {dx_any: [I48]}}
+        - {not: {concurrent: {class_any: [anticoagulant]}}}
+    rationale: Oral anticoagulation reduces stroke risk in atrial fibrillation when stroke risk outweighs bleeding risk.
+    action: Review stroke and bleeding risk scores and confirm whether anticoagulation is indicated or contraindicated.
+    taper: {needed: false, abrupt_stop_risk: low, note: Not applicable.}
+    evidence: {quality: moderate, strength: strong, rating_verified: false, caution: true, note: "2025 appraisal flagged selected STOPP/START v3 anticoagulant criteria."}
+    sources:
+      - {id: stopp_start_v3, locator: "START A1, anticoagulation in atrial fibrillation", verified: false}
+    i18n:
+      fr:
+        title: Sous-traitement possible — anticoagulation à considérer en fibrillation auriculaire
+        rationale: L'anticoagulation orale réduit le risque d'AVC en fibrillation auriculaire lorsque le risque thromboembolique dépasse le risque hémorragique.
+        action: Réviser les scores de risque d'AVC et de saignement et confirmer si l'anticoagulation est indiquée ou contre-indiquée.

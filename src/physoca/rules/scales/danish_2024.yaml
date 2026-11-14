@@ -1,0 +1,33 @@
+# Danish updated anticholinergic scale, Pharmacy 2024;12(6):160
+source_id: anticholinergic_scales
+scale: danish_2024
+scores:
+  amitriptyline: 3
+  benztropine: 3
+  chlorpheniramine: 3
+  chlorpromazine: 3
+  clomipramine: 3
+  clozapine: 3
+  dimenhydrinate: 3
+  diphenhydramine: 3
+  doxepin: 3
+  hydroxyzine: 3
+  imipramine: 3
+  nortriptyline: 3
+  olanzapine: 2
+  oxybutynin: 3
+  paroxetine: 2
+  promethazine: 3
+  quetiapine: 1
+  solifenacin: 3
+  tolterodine: 3
+  trazodone: 1
+  citalopram: 1
+  codeine: 1
+  diazepam: 1
+  furosemide: 0
+  haloperidol: 1
+  lorazepam: 1
+  morphine: 1
+  risperidone: 1
+  tramadol: 1

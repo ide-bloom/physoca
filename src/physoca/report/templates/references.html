@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+  <meta charset="utf-8">
+  <title>{{ t.references_link }} — {{ t.app_title }}</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script>
+    (function() {
+      const saved = localStorage.getItem('physoca_theme');
+      if (saved) document.documentElement.setAttribute('data-theme', saved);
+    })();
+  </script>
+</head>
+<body>
+  <header>
+    <h1>{{ t.references_link }}</h1>
+    <nav class="no-print">
+      <a href="/?lang={{ lang }}">Home</a> |
+      <a href="/references?lang={{ 'fr' if lang == 'en' else 'en' }}">{{ t.language_toggle }}</a>
+    </nav>
+  </header>
+  <main>
+    <table>
+      <thead>
+        <tr><th>ID</th><th>Jurisdiction</th><th>Title</th><th>Year</th><th>Verified</th></tr>
+      </thead>
+      <tbody>
+        {% for s in sources %}
+        <tr id="{{ s.id }}">
+          <td><code>{{ s.id }}</code></td>
+          <td>{{ s.jurisdiction }}</td>
+          <td>{{ s.title }}{% if s.venue %} ({{ s.venue }}){% endif %}</td>
+          <td>{{ s.year or "" }}</td>
+          <td>{{ "Yes" if s.verified else "No" }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </main>
+</body>
+</html>

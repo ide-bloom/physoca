@@ -1,0 +1,41 @@
+# CRIDECO Anticholinergic Load Scale (CALS), J Pers Med 2022;12(2):207
+source_id: anticholinergic_scales
+scale: cals
+scores:
+  amitriptyline: 3
+  benztropine: 3
+  chlorpheniramine: 3
+  chlorpromazine: 3
+  clomipramine: 3
+  clozapine: 3
+  dimenhydrinate: 3
+  diphenhydramine: 3
+  doxepin: 3
+  hydroxyzine: 3
+  imipramine: 3
+  nortriptyline: 3
+  olanzapine: 2
+  oxybutynin: 3
+  paroxetine: 3
+  promethazine: 3
+  quetiapine: 2
+  solifenacin: 3
+  tolterodine: 3
+  trazodone: 1
+  alprazolam: 1
+  citalopram: 1
+  codeine: 1
+  diazepam: 1
+  digoxin: 1
+  furosemide: 1
+  haloperidol: 1
+  lorazepam: 1
+  metformin: 1
+  metoprolol: 1
+  morphine: 1
+  omeprazole: 1
+  prednisone: 1
+  risperidone: 1
+  sertraline: 1
+  tramadol: 2
+  warfarin: 1

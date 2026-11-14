@@ -1,0 +1,339 @@
+schema_version: 1
+pack: physoca-core
+pack_version: "2026.11.0"
+rules:
+  - id: PHY-GI-001
+    version: 1
+    status: active
+    title: Proton pump inhibitor continued beyond eight weeks without a recorded ongoing indication
+    category: gastrointestinal
+    severity: review
+    population: {age_min: 65}
+    target: {atc_prefix: [A02BC]}
+    when:
+      all:
+        - {drug: {duration_days_gt: 56}}
+    exempt_if:
+      any:
+        - {patient: {dx_any: [K21.0, K22.7, E16.4]}}
+        - {patient: {flag_any: [failed_ppi_discontinuation]}}
+        - {concurrent: {class_any: [oral_corticosteroid, nsaid_oral_nonselective]}}
+    rationale: Scheduled use past about eight weeks is linked to infection, bone loss, and fracture risk, and is often continued after the original reason has resolved.
+    action: Confirm there is a current indication, and consider a step-down, on-demand use, or stopping with follow-up.
+    taper: {needed: true, abrupt_stop_risk: low, note: Rebound acid symptoms can occur; the prescriber chooses between stepping down, on-demand use, or stopping, and reviews symptoms afterward.}
+    evidence: {quality: moderate, strength: strong, rating_verified: false, caution: false}
+    sources:
+      - {id: ags_beers_2023, locator: "drugs to avoid, gastrointestinal", verified: false}
+      - {id: deprescribing_org_ppi, locator: "guideline and algorithm", verified: false}
+      - {id: cwc_toolkit_ppi, locator: "toolkit", verified: false}
+      - {id: cwc_cpha_recs, locator: "proton pump inhibitor recommendation", verified: false}
+      - {id: rxfiles, locator: "PPI deprescribing newsletter", verified: false}
+      - {id: stopp_start_v3, locator: "gastrointestinal section", verified: false}
+    i18n:
+      fr:
+        title: Inhibiteur de la pompe à protons poursuivi au-delà de huit semaines sans indication continue consignée
+        rationale: Une utilisation régulière au-delà d'environ huit semaines est associée à un risque d'infection, de perte osseuse et de fracture, et est souvent poursuivie après la résolution du problème initial.
+        action: Confirmer qu'une indication actuelle existe et envisager une réduction, une prise au besoin ou un arrêt avec suivi.
+        taper_note: Un rebond acide peut survenir; le prescripteur choisit entre une diminution, une prise au besoin ou un arrêt, et réévalue les symptômes par la suite.
+
+  - id: PHY-CNS-001
+    version: 1
+    status: active
+    title: Benzodiazepine or Z-drug in an adult aged 65 or over
+    category: central_nervous_system
+    severity: review
+    population: {age_min: 65}
+    target: {class_group: benzodiazepine_receptor_agonist}
+    when:
+      all:
+    downgrade_if:
+      any:
+        - {patient: {dx_any: [G40, G47.52, F10.3, F10.4]}}
+        - {patient: {flag_any: [palliative_care]}}
+    escalate_if:
+      any:
+        - {patient: {flag_any: [falls, delirium]}}
+    rationale: These drugs are associated with cognitive impairment, delirium, falls, fractures, and motor vehicle crashes in older adults, and benefit for insomnia is small and short lived.
+    action: Review the original indication and duration, and discuss a supervised gradual withdrawal together with non-drug approaches to sleep or anxiety.
+    alternatives: See the AGS alternatives list for insomnia and anxiety.
+    taper: {needed: true, abrupt_stop_risk: high, note: Stopping suddenly can cause withdrawal, rebound insomnia, and seizures; the prescriber plans a gradual reduction and the schedule is not given here.}
+    evidence: {quality: moderate, strength: strong, rating_verified: false, caution: false}
+    sources:
+      - {id: ags_beers_2023, locator: "drugs to avoid, central nervous system", verified: false}
+      - {id: deprescribing_org_bzra, locator: "guideline and algorithm", verified: false}
+      - {id: ccsmh_bzra_2020, locator: "recommendation 1, long-term use over four weeks", verified: false}
+      - {id: cwc_cgs_recs, locator: "sedative-hypnotics as first choice", verified: false}
+      - {id: cwc_cpha_recs, locator: "discontinuation strategy", verified: false}
+      - {id: cwc_hospital_medicine_recs, locator: "benzodiazepines started in hospital", verified: false}
+      - {id: cwc_toolkit_drowsy, locator: "toolkit", verified: false}
+      - {id: bzd_taper_joint_2025, locator: "taper principles", verified: false}
+      - {id: stopp_start_v3, locator: "central nervous system and psychotropic section", verified: false}
+    i18n:
+      fr:
+        title: Benzodiazépine ou médicament Z chez un adulte de 65 ans ou plus
+        rationale: Ces médicaments sont associés à des troubles cognitifs, au délire, aux chutes, aux fractures et aux accidents de la route chez les personnes âgées, et leur bénéfice pour l'insomnie est faible et de courte durée.
+        action: Réviser l'indication initiale et la durée, et discuter d'un sevrage graduel supervisé accompagné d'approches non médicamenteuses pour le sommeil ou l'anxiété.
+        alternatives: Consulter la liste des solutions de rechange de l'AGS pour l'insomnie et l'anxiété.
+        taper_note: Un arrêt brusque peut provoquer un sevrage, une insomnie rebond et des convulsions; le prescripteur planifie une réduction graduelle sans calendrier fourni ici.
+
+  - id: PHY-ANTICH-001
+    version: 1
+    status: active
+    title: First-generation antihistamine in an adult aged 65 or over
+    category: anticholinergic
+    severity: review
+    population: {age_min: 65}
+    target: {class_group: first_generation_antihistamine}
+    when:
+      all:
+    escalate_if:
+      any:
+        - {patient: {dx_any: [F00, F01, F02, F03, G30]}}
+        - {patient: {flag_any: [delirium]}}
+    rationale: Strong anticholinergic effects raise the risk of confusion, constipation, urinary retention, and falls, and tolerance to their sedative effect develops quickly.
+    action: Check why it is used. Consider a non-sedating alternative for allergy, or a non-drug approach for sleep or nausea.
+    taper: {needed: false, abrupt_stop_risk: low, note: Regular nightly use may cause short-term rebound sleep disturbance after stopping.}
+    evidence: {quality: moderate, strength: strong, rating_verified: false, caution: false}
+    sources:
+      - {id: ags_beers_2023, locator: "drugs to avoid, first-generation antihistamines", verified: false}
+      - {id: ags_beers_alt_2025, locator: "alternatives, sleep, allergy", verified: false}
+    i18n:
+      fr:
+        title: Antihistaminique de première génération chez un adulte de 65 ans ou plus
+        rationale: Les effets anticholinergiques marqués augmentent le risque de confusion, de constipation, de rétention urinaire et de chutes, et une tolérance à l'effet sédatif apparaît rapidement.
+        action: Vérifier la raison de l'utilisation. Envisager une option non sédative pour les allergies ou une approche non médicamenteuse pour le sommeil ou les nausées.
+        taper_note: Une utilisation nocturne régulière peut entraîner une perturbation passagère du sommeil après l'arrêt.
+
+  - id: PHY-ANTICH-002
+    version: 1
+    status: active
+    title: High cumulative anticholinergic burden
+    category: anticholinergic
+    severity: review
+    population: {age_min: 65}
+    scoring: {primary_scale: acb, threshold_gte: 3, secondary_scales: [cals, danish_2024], flag_scale_disagreement: true}
+    escalate_if:
+      any:
+        - {patient: {dx_any: [F00, F01, F02, F03, G30]}}
+        - {patient: {flag_any: [delirium, falls]}}
+    rationale: The combined effect of several drugs with anticholinergic activity is linked to cognitive decline, delirium, falls, and hospital admission, even when each drug alone scores low.
+    action: Identify the highest-scoring drugs that still have a clear benefit, and consider whether any can be stopped or replaced by a lower-burden option.
+    taper: {needed: false, abrupt_stop_risk: low, note: Some contributing drugs (tricyclic antidepressants, paroxetine) need gradual withdrawal; check each drug's own rule.}
+    evidence: {quality: moderate, strength: strong, rating_verified: false, caution: false, note: Scale scoring is inconsistent across published scales; no gold standard exists.}
+    sources:
+      - {id: anticholinergic_scales, locator: "ACB 2012 update; CALS 2022; Danish 2024; J Am Geriatr Soc 2026 review", verified: false}
+      - {id: ags_beers_2023, locator: "drug-drug interactions, anticholinergic combinations", verified: false}
+    i18n:
+      fr:
+        title: Charge anticholinergique cumulative élevée
+        rationale: L'effet combiné de plusieurs médicaments ayant une activité anticholinergique est associé au déclin cognitif, au délire, aux chutes et à l'hospitalisation, même lorsque chaque médicament pris isolément a un faible score.
+        action: Repérer les médicaments ayant le score le plus élevé qui conservent un bénéfice clair et évaluer si certains peuvent être arrêtés ou remplacés par une option à plus faible charge.
+        taper_note: Certains médicaments contributeurs (antidépresseurs tricycliques, paroxétine) nécessitent un sevrage graduel; vérifier la règle propre à chaque médicament.
+
+  - id: PHY-ENDO-001
+    version: 1
+    status: active
+    title: Sulfonylurea in an adult aged 65 or over
+    category: endocrine
+    severity: consider
+    population: {age_min: 65}
+    target: {atc_prefix: [A10BB]}
+    when:
+      all:
+        - {drug: {prn: false}}
+    escalate_if:
+      any:
+        - {patient: {egfr_lt: 60}}
+        - {patient: {flag_any: [hypoglycemia, falls]}}
+        - {lab: {a1c_lt_individual_target: true}}
+        - {patient: {cfs_gte: 6}}
+    rationale: Sulfonylureas cause prolonged low blood sugar in older adults, especially with reduced kidney function, and tighter control than the individual needs adds risk without benefit.
+    action: Compare the current A1c with this patient's individualized target, review any history of low blood sugar, and consider safer options. If a sulfonylurea is kept, the shorter-acting agents are the lesser concern.
+    taper: {needed: false, abrupt_stop_risk: low, note: Recheck glucose readings and A1c after any change, since control can drift upward once the drug is stopped.}
+    evidence: {quality: moderate, strength: strong, rating_verified: false, caution: false}
+    sources:
+      - {id: ags_beers_2023, locator: "drugs to avoid, endocrine", verified: false}
+      - {id: deprescribing_org_antihyperglycemic, locator: "guideline and algorithm", verified: false}
+      - {id: diabetes_canada_2018_ch37, locator: "glycemic targets in older people", verified: false}
+      - {id: cmaj_2024_lega, locator: "five things to know", verified: false}
+      - {id: cwc_csltcm_recs, locator: "A1c targets in long-term care", verified: false}
+      - {id: stopp_start_v3, locator: "endocrine section", verified: false}
+    i18n:
+      fr:
+        title: Sulfonylurée chez un adulte de 65 ans ou plus
+        rationale: Les sulfonylurées provoquent des hypoglycémies prolongées chez les personnes âgées, surtout en cas de fonction rénale réduite, et un contrôle plus strict que nécessaire ajoute un risque sans bénéfice.
+        action: Comparer l'A1c actuelle à la cible individualisée du patient, vérifier tout antécédent d'hypoglycémie et envisager des options plus sûres. Si une sulfonylurée est maintenue, les agents à courte durée d'action sont moins préoccupants.
+        taper_note: Revérifier la glycémie et l'A1c après toute modification, car le contrôle peut remonter après l'arrêt.
+
+  - id: PHY-CV-001
+    version: 1
+    status: active
+    title: Low-dose aspirin without a recorded cardiovascular disease indication
+    category: cardiovascular
+    severity: consider
+    population: {age_min: 65}
+    target: {ingredient_any: [acetylsalicylic acid]}
+    when:
+      all:
+        - {drug: {dose_mg_day_gt: 0}}
+        - {drug: {route_any: [oral]}}
+    exempt_if:
+      any:
+        - {patient: {dx_any: [I20, I21, I22, I23, I24, I25, I63, G45, I65, I66, I70, I73.9, Z95.1, Z95.2, Z95.3, Z95.5]}}
+        - {drug: {indication_any: [secondary prevention, stroke, myocardial infarction, stent, mechanical valve]}}
+    rationale: In older adults, starting aspirin to prevent a first cardiovascular event adds bleeding risk that can outweigh benefit, and deprescribing is considered for people already taking it for that reason.
+    action: Confirm whether the aspirin is for primary or secondary prevention, and if it is primary prevention consider stopping after discussing it with the patient.
+    taper: {needed: false, abrupt_stop_risk: low, note: Aspirin for secondary prevention (prior heart attack, stroke, stent) should not be stopped on the basis of this flag.}
+    evidence: {quality: moderate, strength: strong, rating_verified: false, caution: false}
+    sources:
+      - {id: ags_beers_2023, locator: "drugs to avoid, cardiovascular, aspirin for primary prevention", verified: false}
+    i18n:
+      fr:
+        title: Aspirine à faible dose sans indication cardiovasculaire consignée
+        rationale: Chez les personnes âgées, l'aspirine en prévention primaire ajoute un risque hémorragique qui peut dépasser le bénéfice, et la déprescription est envisagée lorsqu'elle est prise à cette fin.
+        action: Confirmer s'il s'agit de prévention primaire ou secondaire et, en prévention primaire, envisager l'arrêt après discussion avec le patient.
+        taper_note: L'aspirine en prévention secondaire (infarctus, AVC, endoprothèse) ne doit pas être arrêtée sur la seule base de ce signalement.
+
+  - id: PHY-MSK-001
+    version: 1
+    status: active
+    title: Long-term oral non-selective NSAID in an adult aged 65 or over
+    category: musculoskeletal
+    severity: review
+    population: {age_min: 65}
+    target: {class_group: nsaid_oral_nonselective}
+    when:
+      all:
+        - {drug: {duration_days_gt: 90, basis: implementation_default}}
+        - {drug: {route_any: [oral]}}
+    escalate_if:
+      any:
+        - {patient: {egfr_lt: 30}}
+        - {patient: {dx_any: [I50, K25, K26, K27]}}
+        - {patient: {flag_any: [gi_bleed]}}
+        - {concurrent: {class_any: [anticoagulant, oral_corticosteroid]}}
+    rationale: Long-term use raises the risk of stomach bleeding, kidney injury, high blood pressure, and heart failure, and the risk is higher still with kidney or heart disease or with blood thinners.
+    action: Review whether the pain still needs a daily anti-inflammatory, and consider topical or non-drug options or the lowest-risk systemic option.
+    alternatives: See the AGS alternatives list for pain.
+    taper: {needed: false, abrupt_stop_risk: low, note: Pain may return; plan a replacement approach before stopping.}
+    evidence: {quality: moderate, strength: strong, rating_verified: false, caution: false}
+    sources:
+      - {id: ags_beers_2023, locator: "drugs to avoid, pain and musculoskeletal; drug-disease and renal tables", verified: false}
+      - {id: ags_beers_alt_2025, locator: "alternatives, pain", verified: false}
+    i18n:
+      fr:
+        title: AINS oral non sélectif à long terme chez un adulte de 65 ans ou plus
+        rationale: L'utilisation prolongée augmente le risque d'hémorragie digestive, d'atteinte rénale, d'hypertension et d'insuffisance cardiaque, et ce risque est encore plus élevé en cas de maladie rénale ou cardiaque ou avec des anticoagulants.
+        action: Vérifier si la douleur nécessite toujours un anti-inflammatoire quotidien et envisager des options topiques, non médicamenteuses ou l'option systémique la moins risquée.
+        alternatives: Consulter la liste des solutions de rechange de l'AGS pour la douleur.
+        taper_note: La douleur peut réapparaître; prévoir une approche de remplacement avant l'arrêt.
+
+  - id: PHY-NEURO-001
+    version: 1
+    status: active
+    title: Antipsychotic continued in dementia without a recorded psychotic or mood disorder
+    category: neuropsychiatric
+    severity: review
+    population: {age_min: 65}
+    target: {atc_prefix: [N05A], exclude_atc_prefix: [N05AN]}
+    when:
+      all:
+        - {patient: {dx_any: [F00, F01, F02, F03, G30]}}
+        - {drug: {duration_days_gt: 90, basis: implementation_default}}
+    exempt_if:
+      any:
+        - {patient: {dx_any: [F20, F25, F31, F22, F23]}}
+    rationale: In dementia, antipsychotics raise the risk of stroke, further cognitive decline, and death, and behavioural symptoms often settle after a few months, so continuing them needs a stated reason.
+    action: Review whether the original symptoms persist, confirm that non-drug approaches have been tried, and consider a supervised gradual reduction.
+    taper: {needed: true, abrupt_stop_risk: moderate, note: Symptoms can return or worsen after a rapid stop; the prescriber plans a gradual reduction and monitors behaviour and sleep.}
+    evidence: {quality: moderate, strength: strong, rating_verified: false, caution: false}
+    sources:
+      - {id: ags_beers_2023, locator: "drugs to avoid, central nervous system, antipsychotics", verified: false}
+      - {id: deprescribing_org_antipsychotic, locator: "guideline and algorithm", verified: false}
+      - {id: ccsmh_bpsd_2024, locator: "pharmacological management and reassessment", verified: false}
+      - {id: cwc_toolkit_antipsychotic_ltc, locator: "toolkit", verified: false}
+    i18n:
+      fr:
+        title: Antipsychotique poursuivi dans la démence sans trouble psychotique ou de l'humeur consigné
+        rationale: Dans la démence, les antipsychotiques augmentent le risque d'AVC, de déclin cognitif et de décès, et les symptômes comportementaux s'atténuent souvent après quelques mois; leur poursuite exige une justification claire.
+        action: Vérifier si les symptômes initiaux persistent, confirmer que des approches non médicamenteuses ont été tentées et envisager une réduction graduelle supervisée.
+        taper_note: Les symptômes peuvent réapparaître ou s'aggraver après un arrêt rapide; le prescripteur planifie une réduction graduelle et surveille le comportement et le sommeil.
+
+  - id: PHY-CV-002
+    version: 1
+    status: active
+    title: Digoxin dose above 0.125 mg per day
+    category: cardiovascular
+    severity: review
+    population: {age_min: 65}
+    target: {ingredient_any: [digoxin]}
+    when:
+      all:
+        - {drug: {dose_mg_day_gt: 0.125}}
+    escalate_if:
+      any:
+        - {patient: {egfr_lt: 50}}
+    rationale: Higher doses add toxicity risk without clear added benefit in older adults, and kidney function strongly affects how much accumulates.
+    action: Check the dose against current kidney function and the reason for use, and consider whether a lower dose or another drug is appropriate.
+    taper: {needed: false, abrupt_stop_risk: moderate, note: Do not stop without a plan for rate or rhythm control; the prescriber decides.}
+    evidence: {quality: moderate, strength: strong, rating_verified: false, caution: false, note: First-line use cannot be inferred from the medication list and is not assessed.}
+    sources:
+      - {id: ags_beers_2023, locator: "drugs to avoid, cardiovascular, digoxin", verified: false}
+    i18n:
+      fr:
+        title: Dose de digoxine supérieure à 0,125 mg par jour
+        rationale: Les doses plus élevées ajoutent un risque de toxicité sans bénéfice supplémentaire clair chez les personnes âgées, et la fonction rénale influence fortement l'accumulation.
+        action: Vérifier la dose par rapport à la fonction rénale actuelle et à l'indication, et évaluer si une dose plus faible ou un autre médicament convient.
+        taper_note: Ne pas arrêter sans plan de contrôle de la fréquence ou du rythme; le prescripteur décide.
+
+  - id: PHY-CNS-002
+    version: 1
+    status: active
+    title: Three or more central nervous system active drugs together
+    category: central_nervous_system
+    severity: review
+    population: {age_min: 65}
+    set_rule: {class_group: cns_active, distinct_ingredients_gte: 3}
+    escalate_if:
+      any:
+        - {patient: {flag_any: [falls, delirium]}}
+    rationale: Combining several sedating or psychoactive drugs multiplies the risk of falls and fractures beyond that of any single drug.
+    action: List which of the drugs are essential and consider which can be reduced or stopped first, starting with the one with the weakest current indication.
+    taper: {needed: true, abrupt_stop_risk: high, note: Several drug types in this group need gradual withdrawal; follow each drug's own rule.}
+    evidence: {quality: moderate, strength: strong, rating_verified: false, caution: false}
+    sources:
+      - {id: ags_beers_2023, locator: "drug-drug interactions, central nervous system combinations", verified: false}
+    i18n:
+      fr:
+        title: Trois médicaments actifs sur le système nerveux central ou plus pris ensemble
+        rationale: L'association de plusieurs médicaments sédatifs ou psychoactifs multiplie le risque de chutes et de fractures au-delà de celui de chaque médicament pris seul.
+        action: Dresser la liste des médicaments essentiels et déterminer lesquels peuvent être réduits ou arrêtés en premier, en commençant par celui dont l'indication actuelle est la plus faible.
+        taper_note: Plusieurs classes de ce groupe nécessitent un sevrage graduel; suivre la règle propre à chaque médicament.
+
+  - id: PHY-CNS-003
+    version: 1
+    status: active
+    title: Opioid taken together with a benzodiazepine or gabapentinoid
+    category: central_nervous_system
+    severity: review
+    population: {age_min: 18}
+    set_rule:
+      pairs:
+        - {a: {class_group: opioid}, b: {class_group: benzodiazepine_receptor_agonist}, severity: urgent}
+        - {a: {class_group: opioid}, b: {class_group: gabapentinoid}, severity: review}
+    exempt_if:
+      any:
+        - {patient: {flag_any: [palliative_care]}}
+    rationale: These combinations increase sedation and slowed breathing, and the risk of overdose and falls.
+    action: Confirm both are still needed, consider whether the dose of either can be reduced, and check for other sedating drugs and for alcohol use.
+    taper: {needed: true, abrupt_stop_risk: high, note: Neither drug should be stopped suddenly; the prescriber plans any change and the sequence is not given here.}
+    evidence: {quality: moderate, strength: strong, rating_verified: false, caution: false}
+    sources:
+      - {id: ags_beers_2023, locator: "drug-drug interactions, opioids with benzodiazepines or gabapentinoids", verified: false}
+      - {id: cdn_opioid_2017, locator: "benzodiazepine tapering before starting an opioid", verified: false}
+    i18n:
+      fr:
+        title: Opioïde pris conjointement avec une benzodiazépine ou un gabapentinoïde
+        rationale: Ces associations augmentent la sédation, la dépression respiratoire ainsi que le risque de surdose et de chutes.
+        action: Confirmer que les deux demeurent nécessaires, envisager une réduction de dose de l'un ou l'autre et vérifier la présence d'autres sédatifs ou d'une consommation d'alcool.
+        taper_note: Aucun des deux médicaments ne doit être arrêté brusquement; le prescripteur planifie tout changement sans séquence fournie ici.

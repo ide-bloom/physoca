@@ -1,0 +1,10 @@
+services:
+  physoca:
+    build: .
+    ports:
+      - "8000:8000"
+    read_only: true
+    tmpfs:
+      - /tmp
+    environment:
+      - PHYSOCA_LOG_LEVEL=INFO

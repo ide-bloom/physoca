@@ -1,0 +1,115 @@
+# Curated class group mappings reviewed by a pharmacist.
+# Used by Physoca rule packs for target and concurrent-drug matching.
+schema_version: 1
+reviewed_by_pharmacist: false
+groups:
+  benzodiazepine_receptor_agonist:
+    note: Curated mapping of benzodiazepines and Z-drugs.
+    atc_prefix: ["N05BA", "N05CD", "N05CF"]
+    ingredients:
+      - alprazolam
+      - bromazepam
+      - chlordiazepoxide
+      - clonazepam
+      - clorazepate
+      - diazepam
+      - flurazepam
+      - lorazepam
+      - nitrazepam
+      - oxazepam
+      - temazepam
+      - triazolam
+      - zopiclone
+      - zolpidem
+      - zaleplon
+      - eszopiclone
+
+  first_generation_antihistamine:
+    note: Curated mapping of first-generation antihistamines.
+    ingredients:
+      - brompheniramine
+      - carbinoxamine
+      - chlorpheniramine
+      - clemastine
+      - cyproheptadine
+      - dimenhydrinate
+      - diphenhydramine
+      - doxylamine
+      - hydroxyzine
+      - meclizine
+      - promethazine
+      - triprolidine
+
+  nsaid_oral_nonselective:
+    note: Oral non-selective NSAIDs excluding celecoxib.
+    atc_prefix: ["M01A"]
+    exclude_atc_prefix: ["M01AH01"]
+    exclude_ingredients: ["celecoxib"]
+    routes: ["oral"]
+    ingredients:
+      - ibuprofen
+      - naproxen
+      - diclofenac
+      - indomethacin
+      - ketorolac
+      - etodolac
+      - meloxicam
+      - nabumetone
+      - piroxicam
+      - ketoprofen
+
+  oral_corticosteroid:
+    note: Systemic oral corticosteroids.
+    atc_prefix: ["H02AB"]
+    routes: ["oral"]
+    ingredients:
+      - prednisone
+      - prednisolone
+      - methylprednisolone
+      - dexamethasone
+      - hydrocortisone
+
+  anticoagulant:
+    note: Oral and injectable anticoagulants.
+    atc_prefix: ["B01AA", "B01AE", "B01AF", "B01AB"]
+    ingredients:
+      - warfarin
+      - apixaban
+      - rivaroxaban
+      - dabigatran
+      - edoxaban
+      - enoxaparin
+      - dalteparin
+      - tinzaparin
+
+  opioid:
+    note: Opioid analgesics.
+    atc_prefix: ["N02A"]
+    ingredients:
+      - morphine
+      - hydromorphone
+      - oxycodone
+      - fentanyl
+      - tramadol
+      - codeine
+      - methadone
+      - buprenorphine
+
+  gabapentinoid:
+    note: Gabapentinoids.
+    ingredients:
+      - gabapentin
+      - pregabalin
+
+  cns_active:
+    note: Central nervous system active drug classes for cumulative burden.
+    atc_prefix: ["N06A", "N03A", "N05A", "N05BA", "N05CD", "N05CF", "N02A", "M03B"]
+    exclude_atc_prefix: ["N05AN"]
+    ingredients:
+      - gabapentin
+      - pregabalin
+      - zopiclone
+      - zolpidem
+      - cyclobenzaprine
+      - baclofen
+      - methocarbamol
